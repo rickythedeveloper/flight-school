@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "style": "prettier . --write"
+    "style": "prettier . --write",
+    "typeCheck": "tsc --noEmit",
+    "check": "npm run style && npm run lint && npm run typeCheck"
   },
   "dependencies": {
     "next": "14.2.5",
