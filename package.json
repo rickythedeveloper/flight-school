@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --fix",
     "style": "prettier . --write",
     "typeCheck": "tsc --noEmit",
     "check": "npm run style && npm run lint && npm run typeCheck"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.4.0",
+    "@supabase/supabase-js": "^2.44.4",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18"

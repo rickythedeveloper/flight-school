@@ -10,5 +10,6 @@ module.exports = {
   root: true,
   rules: {
     "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/consistent-type-imports": "error",
   },
 };

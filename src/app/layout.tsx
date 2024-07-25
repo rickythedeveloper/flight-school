@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { ReactElement, ReactNode } from "react";
+import type { ReactElement, ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Create Next App",
