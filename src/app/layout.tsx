@@ -16,14 +16,14 @@ export default function RootLayout({
   children: ReactNode;
 }>): ReactElement {
   return (
-    <MantineProvider theme={theme}>
-      <html lang="en">
-        <head>
-          <ColorSchemeScript />
-        </head>
+    <html lang="en">
+      <head>
+        <ColorSchemeScript />
+      </head>
 
-        <body>{children}</body>
-      </html>
-    </MantineProvider>
+      <body>
+        <MantineProvider theme={theme}>{children}</MantineProvider>
+      </body>
+    </html>
   );
 }
