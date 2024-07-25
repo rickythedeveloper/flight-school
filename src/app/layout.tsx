@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@mantine/core/styles.css";
 import type { ReactElement, ReactNode } from "react";
+import { MantineProvider, ColorSchemeScript } from "@mantine/core";
+import { theme } from "@/theme";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,8 +16,14 @@ export default function RootLayout({
   children: ReactNode;
 }>): ReactElement {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
+    <MantineProvider theme={theme}>
+      <html lang="en">
+        <head>
+          <ColorSchemeScript />
+        </head>
+
+        <body>{children}</body>
+      </html>
+    </MantineProvider>
   );
 }
