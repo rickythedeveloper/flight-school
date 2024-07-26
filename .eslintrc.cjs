@@ -11,5 +11,19 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/consistent-type-imports": "error",
+    "import/no-restricted-paths": [
+      "error",
+      {
+        zones: [
+          {
+            target: [
+              "./src/!(components|app|theme.ts)",
+              "./src/app/!(layout.tsx)",
+            ],
+            from: "./node_modules/@mantine/core",
+          },
+        ],
+      },
+    ],
   },
 };
