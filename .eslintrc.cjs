@@ -2,6 +2,7 @@
 module.exports = {
   extends: [
     "eslint:recommended",
+    "plugin:n/recommended",
     "plugin:@typescript-eslint/recommended",
     "next/core-web-vitals",
   ],
@@ -25,5 +26,16 @@ module.exports = {
         ],
       },
     ],
+    "n/no-missing-import": "off", // Does not recognise the @ shortcut.
+    "n/no-process-env": "error", // only environment.ts can access process.env
   },
+  overrides: [
+    {
+      // only environment.ts can access process.env
+      files: ["./src/utils/environment/environment.ts"],
+      rules: {
+        "n/no-process-env": "off",
+      },
+    },
+  ],
 };

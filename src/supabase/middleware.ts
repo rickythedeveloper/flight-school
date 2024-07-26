@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { getEnvironment } from "@/utils/environment/environment";
 
 export const updateSession = async (
   request: NextRequest,
@@ -11,9 +12,11 @@ export const updateSession = async (
     },
   });
 
+  const environment = getEnvironment();
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    environment.supabase.url,
+    environment.supabase.anonKey,
     {
       cookies: {
         getAll() {
