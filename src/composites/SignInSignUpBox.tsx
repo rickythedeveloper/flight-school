@@ -29,20 +29,18 @@ export const SignInSignUpBox = ({
       <PasswordTextField password={password} setPassword={setPassword} />
 
       <Button
+        title={"Sign in"}
         onClick={() => {
           signIn({ email, password });
         }}
-      >
-        Sign In
-      </Button>
+      />
 
       <Button
+        title={"Sign up"}
         onClick={() => {
           signUp({ email, password });
         }}
-      >
-        Sign Up
-      </Button>
+      />
     </form>
   );
 };

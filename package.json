@@ -9,7 +9,9 @@
     "lint": "next lint --fix",
     "style": "prettier . --write",
     "typeCheck": "tsc --noEmit",
-    "check": "npm run style && npm run lint && npm run typeCheck"
+    "check": "npm run style && npm run lint && npm run typeCheck",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",
@@ -21,6 +23,16 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-essentials": "^8.2.6",
+    "@storybook/addon-interactions": "^8.2.6",
+    "@storybook/addon-links": "^8.2.6",
+    "@storybook/addon-onboarding": "^8.2.6",
+    "@storybook/addon-styling-webpack": "^1.0.0",
+    "@storybook/blocks": "^8.2.6",
+    "@storybook/nextjs": "^8.2.6",
+    "@storybook/react": "^8.2.6",
+    "@storybook/test": "^8.2.6",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
@@ -30,10 +42,13 @@
     "eslint-config-next": "14.2.5",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.10.1",
+    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.40",
     "postcss-preset-mantine": "^1.17.0",
     "postcss-simple-vars": "^7.0.1",
     "prettier": "3.3.3",
+    "storybook": "^8.2.6",
+    "storybook-dark-mode": "^4.0.2",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.5.4"
   }
