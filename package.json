@@ -11,7 +11,8 @@
     "typeCheck": "tsc --noEmit",
     "check": "npm run style && npm run lint && npm run typeCheck",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test-storybook": "test-storybook"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",
@@ -33,6 +34,7 @@
     "@storybook/nextjs": "^8.2.6",
     "@storybook/react": "^8.2.6",
     "@storybook/test": "^8.2.6",
+    "@storybook/test-runner": "^0.19.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
