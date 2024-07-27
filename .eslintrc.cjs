@@ -28,6 +28,7 @@ module.exports = {
         ],
       },
     ],
+    "import/order": "error",
     "n/no-missing-import": "off", // Does not recognise the @ shortcut.
     "n/no-process-env": "error", // only environment.ts can access process.env
   },

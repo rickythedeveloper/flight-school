@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { EmailTextField } from "./EmailTextField";
 import type { ReactElement } from "react";
 import { useState } from "react";
+import { EmailTextField } from "./EmailTextField";
 
 const EmailTextFieldStory = (): ReactElement => {
   const [email, setEmail] = useState<string>("");

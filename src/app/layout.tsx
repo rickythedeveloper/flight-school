@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import "./globals.css";
 import "@mantine/core/styles.css";
+import type { Metadata } from "next";
 import type { ReactElement, ReactNode } from "react";
-import { MantineProvider, ColorSchemeScript } from "@mantine/core";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
 
 export const metadata: Metadata = {

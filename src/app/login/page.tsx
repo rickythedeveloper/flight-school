@@ -1,7 +1,7 @@
 import { headers } from "next/headers";
-import { createSupabaseServerClient } from "@/supabase/server";
 import { redirect } from "next/navigation";
 import type { ReactElement } from "react";
+import { createSupabaseServerClient } from "@/supabase/server";
 import type { AuthenticationCredential } from "@/composites/SignInSignUpBox";
 import { SignInSignUpBox } from "@/composites/SignInSignUpBox";
 

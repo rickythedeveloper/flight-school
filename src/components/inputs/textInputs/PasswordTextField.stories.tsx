@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { PasswordTextField } from "./PasswordTextField";
 import type { ReactElement } from "react";
 import { useState } from "react";
+import { PasswordTextField } from "./PasswordTextField";
 
 const PasswordTextFieldStory = (): ReactElement => {
   const [password, setPassword] = useState<string>("");

@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { TextField } from "./TextField";
 import type { ReactElement } from "react";
 import { useState } from "react";
+import { TextField } from "./TextField";
 
 interface TextFieldStoryProps {
   label: string;
