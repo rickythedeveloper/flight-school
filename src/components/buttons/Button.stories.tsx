@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Button } from "./Button";
+import { fn } from "@storybook/test";
 
 const meta = {
   component: Button,
@@ -13,5 +14,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     title: "Button",
+    onClick: fn(),
   },
 };
