@@ -2,11 +2,25 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
+import type { PasswordTextFieldProps } from "./PasswordTextField";
 import { PasswordTextField } from "./PasswordTextField";
 
-const PasswordTextFieldStory = (): ReactElement => {
+type PasswordTextFieldStoryProps = Omit<
+  PasswordTextFieldProps,
+  "password" | "setPassword"
+>;
+
+const PasswordTextFieldStory = (
+  props: PasswordTextFieldStoryProps,
+): ReactElement => {
   const [password, setPassword] = useState<string>("");
-  return <PasswordTextField password={password} setPassword={setPassword} />;
+  return (
+    <PasswordTextField
+      {...props}
+      password={password}
+      setPassword={setPassword}
+    />
+  );
 };
 
 const meta = {
@@ -18,5 +32,10 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => <PasswordTextFieldStory />,
+  render: (args: PasswordTextFieldStoryProps) => (
+    <PasswordTextFieldStory {...args} />
+  ),
+  args: {
+    hasError: false,
+  } satisfies PasswordTextFieldStoryProps,
 };

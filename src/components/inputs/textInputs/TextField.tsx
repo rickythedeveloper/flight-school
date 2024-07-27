@@ -1,11 +1,13 @@
 import type { ReactElement } from "react";
-import { TextInput } from "@mantine/core";
+import { TextInput as MantineTextField } from "@mantine/core";
 
-interface TextFieldProps {
+export interface TextFieldProps {
   label: string;
   value: string;
   setValue: (newValue: string) => void;
   placeholder?: string;
+  required?: boolean;
+  error?: boolean | string;
 }
 
 export const TextField = ({
@@ -13,13 +15,17 @@ export const TextField = ({
   value,
   setValue,
   placeholder,
+  required = false,
+  error,
 }: TextFieldProps): ReactElement => {
   return (
-    <TextInput
+    <MantineTextField
       label={label}
       value={value}
       onChange={(event) => setValue(event.currentTarget.value)}
       placeholder={placeholder}
+      required={required}
+      error={error}
     />
   );
 };

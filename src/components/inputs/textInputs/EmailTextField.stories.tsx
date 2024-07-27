@@ -2,11 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
+import type { EmailTextFieldProps } from "./EmailTextField";
 import { EmailTextField } from "./EmailTextField";
 
-const EmailTextFieldStory = (): ReactElement => {
+type EmailTextFieldStoryProps = Omit<EmailTextFieldProps, "email" | "setEmail">;
+
+const EmailTextFieldStory = (props: EmailTextFieldStoryProps): ReactElement => {
   const [email, setEmail] = useState<string>("");
-  return <EmailTextField email={email} setEmail={setEmail} />;
+  return <EmailTextField {...props} email={email} setEmail={setEmail} />;
 };
 
 const meta = {
@@ -18,5 +21,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: () => <EmailTextFieldStory />,
+  render: (args) => <EmailTextFieldStory {...args} />,
+  args: {
+    hasError: false,
+  } satisfies EmailTextFieldStoryProps,
 };

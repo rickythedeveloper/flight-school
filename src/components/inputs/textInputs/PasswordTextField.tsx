@@ -1,21 +1,25 @@
 import type { ReactElement } from "react";
 import { TextField } from "@/components/inputs/textInputs/TextField";
 
-interface PasswordTextField {
+export interface PasswordTextFieldProps {
   password: string;
   setPassword: (newEmail: string) => void;
+  hasError: boolean;
 }
 
 export const PasswordTextField = ({
   password,
   setPassword,
-}: PasswordTextField): ReactElement => {
+  hasError,
+}: PasswordTextFieldProps): ReactElement => {
   return (
     <TextField
       label={"Password"}
       value={password}
       setValue={setPassword}
       placeholder={"••••••••"}
+      required
+      error={hasError}
     />
   );
 };

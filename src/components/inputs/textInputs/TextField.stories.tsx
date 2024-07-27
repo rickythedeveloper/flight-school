@@ -2,26 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
+import type { TextFieldProps } from "./TextField";
 import { TextField } from "./TextField";
 
-interface TextFieldStoryProps {
-  label: string;
-  placeholder: string;
-}
+type TextFieldStoryProps = Omit<TextFieldProps, "value" | "setValue">;
 
-const TextFieldStory = ({
-  label,
-  placeholder,
-}: TextFieldStoryProps): ReactElement => {
+const TextFieldStory = (props: TextFieldStoryProps): ReactElement => {
   const [value, setValue] = useState<string>("");
-  return (
-    <TextField
-      value={value}
-      setValue={setValue}
-      label={label}
-      placeholder={placeholder}
-    />
-  );
+  return <TextField {...props} value={value} setValue={setValue} />;
 };
 
 const meta = {
@@ -33,9 +21,21 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  render: (args) => <TextFieldStory {...args} />,
+  render: (args: TextFieldStoryProps) => <TextFieldStory {...args} />,
   args: {
     label: "Label",
     placeholder: "Placeholder",
-  },
+    required: false,
+    error: false,
+  } satisfies TextFieldStoryProps,
+};
+
+export const WithErrorText: Story = {
+  render: (args: TextFieldStoryProps) => <TextFieldStory {...args} />,
+  args: {
+    label: "Label",
+    placeholder: "Placeholder",
+    required: true,
+    error: "Invalid data",
+  } satisfies TextFieldStoryProps,
 };

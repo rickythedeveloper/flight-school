@@ -22,15 +22,26 @@ export const SignInSignUpBox = ({
 }: SignInSignUpBoxProps): ReactElement => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [requiresNonEmptyFields, setRequiresNonEmptyFields] =
+    useState<boolean>(false);
 
   return (
     <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
-      <EmailTextField email={email} setEmail={setEmail} />
-      <PasswordTextField password={password} setPassword={setPassword} />
+      <EmailTextField
+        email={email}
+        setEmail={setEmail}
+        hasError={requiresNonEmptyFields && !email}
+      />
+      <PasswordTextField
+        password={password}
+        setPassword={setPassword}
+        hasError={requiresNonEmptyFields && !password}
+      />
 
       <Button
         title={"Sign in"}
         onClick={() => {
+          setRequiresNonEmptyFields(true);
           signIn({ email, password });
         }}
       />
@@ -38,6 +49,7 @@ export const SignInSignUpBox = ({
       <Button
         title={"Sign up"}
         onClick={() => {
+          setRequiresNonEmptyFields(true);
           signUp({ email, password });
         }}
       />
