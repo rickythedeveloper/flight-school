@@ -36,6 +36,6 @@ export const Default: Story = {
     <PasswordTextFieldStory {...args} />
   ),
   args: {
-    hasError: false,
+    errorMessage: '',
   } satisfies PasswordTextFieldStoryProps,
 };

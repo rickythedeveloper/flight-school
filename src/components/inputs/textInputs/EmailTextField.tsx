@@ -4,13 +4,13 @@ import { TextField } from "@/components/inputs/textInputs/TextField";
 export interface EmailTextFieldProps {
   email: string;
   setEmail: (newEmail: string) => void;
-  hasError: boolean;
+  errorMessage: string | null;
 }
 
 export const EmailTextField = ({
   email,
   setEmail,
-  hasError,
+  errorMessage,
 }: EmailTextFieldProps): ReactElement => {
   return (
     <TextField
@@ -19,7 +19,7 @@ export const EmailTextField = ({
       setValue={setEmail}
       placeholder={"you@example.com"}
       required
-      error={hasError}
+      error={errorMessage ?? false}
     />
   );
 };

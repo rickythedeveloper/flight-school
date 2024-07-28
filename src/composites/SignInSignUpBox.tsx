@@ -11,7 +11,7 @@ export interface AuthenticationCredential {
   password: string;
 }
 
-interface SignInSignUpBoxProps {
+export interface SignInSignUpBoxProps {
   signIn: (credential: AuthenticationCredential) => void;
   signUp: (credential: AuthenticationCredential) => void;
 }
@@ -30,19 +30,30 @@ export const SignInSignUpBox = ({
       <EmailTextField
         email={email}
         setEmail={setEmail}
-        hasError={requiresNonEmptyFields && !email}
+        errorMessage={
+          requiresNonEmptyFields && !email
+            ? "Email address cannot be empty"
+            : null
+        }
       />
       <PasswordTextField
         password={password}
         setPassword={setPassword}
-        hasError={requiresNonEmptyFields && !password}
+        errorMessage={
+          requiresNonEmptyFields && !password
+            ? "Password cannot be empty"
+            : null
+        }
       />
 
       <Button
         title={"Sign in"}
         onClick={() => {
           setRequiresNonEmptyFields(true);
-          signIn({ email, password });
+
+          if (email && password) {
+            signIn({ email, password });
+          }
         }}
       />
 
@@ -50,7 +61,10 @@ export const SignInSignUpBox = ({
         title={"Sign up"}
         onClick={() => {
           setRequiresNonEmptyFields(true);
-          signUp({ email, password });
+
+          if (email && password) {
+            signUp({ email, password });
+          }
         }}
       />
     </form>

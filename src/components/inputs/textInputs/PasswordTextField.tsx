@@ -4,13 +4,13 @@ import { TextField } from "@/components/inputs/textInputs/TextField";
 export interface PasswordTextFieldProps {
   password: string;
   setPassword: (newEmail: string) => void;
-  hasError: boolean;
+  errorMessage: string | null;
 }
 
 export const PasswordTextField = ({
   password,
   setPassword,
-  hasError,
+  errorMessage,
 }: PasswordTextFieldProps): ReactElement => {
   return (
     <TextField
@@ -19,7 +19,7 @@ export const PasswordTextField = ({
       setValue={setPassword}
       placeholder={"••••••••"}
       required
-      error={hasError}
+      error={errorMessage ?? false}
     />
   );
 };
