@@ -23,6 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: (args) => <EmailTextFieldStory {...args} />,
   args: {
-    errorMessage: '',
+    errorMessage: "",
   } satisfies EmailTextFieldStoryProps,
 };
