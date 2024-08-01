@@ -24,7 +24,7 @@ export default function Login(): ReactElement {
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/protected");
+    return redirect("/account");
   };
 
   const signUp = async ({

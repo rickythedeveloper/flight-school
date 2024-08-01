@@ -2,6 +2,14 @@ import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 import { getEnvironment } from "@/utils/environment/environment";
 
+const allowedPathsForUnauthenticated = ["/login", "/auth/confirm"] as const;
+
+const pathnameIsAllowedForUnauthenticated = (pathname: string): boolean => {
+  return allowedPathsForUnauthenticated.some((allowedPath) =>
+    pathname.startsWith(allowedPath),
+  );
+};
+
 export const updateSession = async (
   request: NextRequest,
 ): Promise<NextResponse> => {
@@ -39,7 +47,20 @@ export const updateSession = async (
 
   // This will refresh session if expired - required for Server Components
   // https://supabase.com/docs/guides/auth/server-side/nextjs
-  await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const isAuthenticated = user !== null;
+
+  if (
+    !isAuthenticated &&
+    !pathnameIsAllowedForUnauthenticated(request.nextUrl.pathname)
+  ) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
 
   return response;
 };
