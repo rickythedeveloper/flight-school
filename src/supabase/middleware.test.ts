@@ -14,7 +14,7 @@ const getEnvironmentMock = getEnvironment as jest.Mock;
 jest.mock("next/server", () => {
   return {
     __esModule: true,
-    ...(jest.requireActual("next/server") as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+    ...(jest.requireActual("next/server") as any),
     NextResponse: {
       redirect: jest.fn(),
       next: jest.fn(),
@@ -31,8 +31,6 @@ describe("supabaseMiddleware", () => {
         anonKey: "supabase-anon-key",
       },
     });
-
-    redirectMock.mockReset();
   });
 
   test("redirects to login if unauthenticated", async () => {
