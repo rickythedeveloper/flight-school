@@ -16,12 +16,12 @@ export default function RootLayout({
   children: ReactNode;
 }>): ReactElement {
   return (
-    <html lang="en">
+    <html lang="en" className={"h-full w-full"}>
       <head>
         <ColorSchemeScript />
       </head>
 
-      <body>
+      <body className={"h-full w-full"}>
         <MantineProvider theme={theme}>{children}</MantineProvider>
       </body>
     </html>
