@@ -2,8 +2,8 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import type { AuthenticationCredential } from "@/composites/SignInSignUpBox";
 import { createSupabaseServerClient } from "@/supabase/server";
+import type { AuthenticationCredential } from "@/utils/authentication/AuthenticationCredential";
 
 export const signUp = async ({
   email,

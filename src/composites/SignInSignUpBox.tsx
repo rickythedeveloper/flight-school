@@ -5,11 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/buttons/Button";
 import { EmailTextField } from "@/components/inputs/textInputs/EmailTextField";
 import { PasswordTextField } from "@/components/inputs/textInputs/PasswordTextField";
-
-export interface AuthenticationCredential {
-  email: string;
-  password: string;
-}
+import type { AuthenticationCredential } from "@/utils/authentication/AuthenticationCredential";
 
 export interface SignInSignUpBoxProps {
   signIn: (credential: AuthenticationCredential) => void;
