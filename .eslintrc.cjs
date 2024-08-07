@@ -26,6 +26,17 @@ module.exports = {
             ],
             from: "./node_modules/@mantine/core",
           },
+          {
+            target: [
+              "./src/!(services)",
+              "./src/!(services)/**",
+              "./src/services/!(serverAuthService)",
+              "./src/services/!(serverAuthService)/**",
+              "./src/services/serverAuthService/!(serverAuthServiceImpl.ts)",
+              "./src/services/serverAuthService/!(serverAuthServiceImpl.ts)/**",
+            ],
+            from: "./src/supabase/server.ts",
+          },
         ],
       },
     ],
