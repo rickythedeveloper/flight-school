@@ -20,9 +20,10 @@ module.exports = {
         zones: [
           {
             target: [
-              "./src/!(app|theme.ts)",
-              "./src/app/!(layout.tsx|components)",
-              "./src/app/!(components)/**",
+              "./src/!(app|components|theme.ts)",
+              "./src/!(app|components)/**",
+              "./src/app/!(layout.tsx)",
+              "./src/app/!(layout.tsx)/**",
             ],
             from: "./node_modules/@mantine/core",
           },
