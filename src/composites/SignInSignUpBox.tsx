@@ -5,11 +5,12 @@ import { useState } from "react";
 import { Button } from "@/components/buttons/Button";
 import { EmailTextField } from "@/components/inputs/textInputs/EmailTextField";
 import { PasswordTextField } from "@/components/inputs/textInputs/PasswordTextField";
-import type { AuthenticationCredential } from "@/utils/authentication/AuthenticationCredential";
+
+import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
 
 export interface SignInSignUpBoxProps {
-  signIn: (credential: AuthenticationCredential) => void;
-  signUp: (credential: AuthenticationCredential) => void;
+  signIn: (credential: AuthCredential) => void;
+  signUp: (credential: AuthCredential) => void;
 }
 
 export const SignInSignUpBox = ({

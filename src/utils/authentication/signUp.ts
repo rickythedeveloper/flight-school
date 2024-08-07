@@ -2,27 +2,24 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/supabase/server";
-import type { AuthenticationCredential } from "@/utils/authentication/AuthenticationCredential";
+
+import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
+import { authService } from "@/services";
 
 export const signUp = async ({
   email,
   password,
-}: AuthenticationCredential): Promise<void> => {
+}: AuthCredential): Promise<void> => {
   const origin = headers().get("origin");
-  const supabase = createSupabaseServerClient();
 
-  const { error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: `${origin}/auth/callback`,
-    },
-  });
+  const { isSuccess } = await authService.signUp(
+    { email, password },
+    `${origin}/auth/callback`,
+  );
 
-  if (error) {
-    return redirect("/login?message=Could not authenticate user");
-  }
+  const redirectUrl = isSuccess
+    ? "/login?message=Check email to continue sign in process"
+    : "/login?message=Could not authenticate user";
 
-  return redirect("/login?message=Check email to continue sign in process");
+  return redirect(redirectUrl);
 };

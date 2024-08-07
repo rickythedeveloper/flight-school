@@ -1,23 +1,19 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { createSupabaseServerClient } from "@/supabase/server";
-import type { AuthenticationCredential } from "@/utils/authentication/AuthenticationCredential";
+
+import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
+import { authService } from "@/services";
 
 export const signIn = async ({
   email,
   password,
-}: AuthenticationCredential): Promise<void> => {
-  const supabase = createSupabaseServerClient();
+}: AuthCredential): Promise<void> => {
+  const { isSuccess } = await authService.signIn({ email, password });
 
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
+  const redirectUrl = isSuccess
+    ? "/account"
+    : "/login?message=Could not authenticate user";
 
-  if (error) {
-    return redirect("/login?message=Could not authenticate user");
-  }
-
-  return redirect("/account");
+  return redirect(redirectUrl);
 };

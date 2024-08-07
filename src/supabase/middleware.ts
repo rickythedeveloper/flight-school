@@ -1,6 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { getEnvironment } from "@/utils/environment/environment";
+import { envService } from "@/services";
 
 const allowedPathsForUnauthenticated = ["/login", "/auth/confirm"] as const;
 
@@ -20,11 +20,11 @@ export const updateSession = async (
     },
   });
 
-  const environment = getEnvironment();
+  const supabaseConfig = envService.getSupabaseConfig();
 
   const supabase = createServerClient(
-    environment.supabase.url,
-    environment.supabase.anonKey,
+    supabaseConfig.url,
+    supabaseConfig.anonKey,
     {
       cookies: {
         getAll() {

@@ -1,14 +1,16 @@
 import { describe, expect, jest, test } from "@jest/globals";
 import { NextRequest, NextResponse } from "next/server";
 import type { NextURL } from "next/dist/server/web/next-url";
-import { createSupabaseServerClient } from "@/supabase/server";
 import { GET } from "@/app/auth/confirm/route";
+import { authService } from "@/services";
+import type { VerifyOtp } from "@/services/serverAuthService/serverAuthService";
 
-jest.mock("@/supabase/server", () => ({
-  __esModule: true,
-  createSupabaseServerClient: jest.fn(),
+jest.mock("@/services", () => ({
+  authService: {
+    verifyOtp: jest.fn(),
+  },
 }));
-const createSupabaseServerClientMock = createSupabaseServerClient as jest.Mock;
+const verifyOtpMock = authService.verifyOtp as jest.MockedFunction<VerifyOtp>;
 
 jest.mock("next/server", () => {
   return {
@@ -27,30 +29,22 @@ describe("authConfirmRoute", () => {
     const request = new NextRequest(
       "http://localhost:3000/auth/confirm?type=email&token_hash=123456",
     );
-    const mockSupabaseClient = getSupabaseClientMockWithVerifyOtpError(null);
-    createSupabaseServerClientMock.mockReturnValue(mockSupabaseClient);
+    verifyOtpMock.mockResolvedValue({ isSuccess: true });
 
     await GET(request);
 
-    expect(mockSupabaseClient.auth.verifyOtp).toHaveBeenCalledWith({
-      type: "email",
-      token_hash: "123456",
-    });
+    expect(verifyOtpMock).toHaveBeenCalledWith("email", "123456");
   });
 
   test("redirects to account if verification succeeds", async () => {
     const request = new NextRequest(
       "http://localhost:3000/auth/confirm?type=email&token_hash=123456",
     );
-    const mockSupabaseClient = getSupabaseClientMockWithVerifyOtpError(null);
-    createSupabaseServerClientMock.mockReturnValue(mockSupabaseClient);
+    verifyOtpMock.mockResolvedValue({ isSuccess: true });
 
     await GET(request);
 
-    expect(mockSupabaseClient.auth.verifyOtp).toHaveBeenCalledWith({
-      type: "email",
-      token_hash: "123456",
-    });
+    expect(verifyOtpMock).toHaveBeenCalledWith("email", "123456");
 
     const redirectUrl = redirectMock.mock.calls[0][0] as NextURL;
     expect(redirectUrl.pathname).toBe("/account");
@@ -60,26 +54,13 @@ describe("authConfirmRoute", () => {
     const request = new NextRequest(
       "http://localhost:3000/auth/confirm?type=email&token_hash=123456",
     );
-    const mockSupabaseClient =
-      getSupabaseClientMockWithVerifyOtpError("some-error");
-    createSupabaseServerClientMock.mockReturnValue(mockSupabaseClient);
+    verifyOtpMock.mockResolvedValue({ isSuccess: false });
 
     await GET(request);
 
-    expect(mockSupabaseClient.auth.verifyOtp).toHaveBeenCalledWith({
-      type: "email",
-      token_hash: "123456",
-    });
+    expect(verifyOtpMock).toHaveBeenCalledWith("email", "123456");
 
     const redirectUrl = redirectMock.mock.calls[0][0] as NextURL;
     expect(redirectUrl.pathname).toBe("/error");
   });
-});
-
-const getSupabaseClientMockWithVerifyOtpError = (
-  error: any,
-): { auth: { verifyOtp: jest.Mock } } => ({
-  auth: {
-    verifyOtp: jest.fn().mockReturnValue({ error }),
-  },
 });

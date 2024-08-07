@@ -37,7 +37,7 @@ module.exports = {
   overrides: [
     {
       // only environment.ts can access process.env
-      files: ["./src/utils/environment/environment.ts"],
+      files: ["./src/services/envService/envServiceImpl.ts"],
       rules: {
         "n/no-process-env": "off",
       },

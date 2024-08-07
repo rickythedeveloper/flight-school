@@ -1,13 +1,14 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { getEnvironment } from "@/utils/environment/environment";
 
-export const createSupabaseServerClient = (): SupabaseClient => {
+export const createSupabaseServerClient = (config: {
+  url: string;
+  anonKey: string;
+}): SupabaseClient => {
   const cookieStore = cookies();
-  const env = getEnvironment();
 
-  return createServerClient(env.supabase.url, env.supabase.anonKey, {
+  return createServerClient(config.url, config.anonKey, {
     cookies: {
       getAll() {
         return cookieStore.getAll();

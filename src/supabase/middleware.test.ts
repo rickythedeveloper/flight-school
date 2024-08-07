@@ -3,13 +3,17 @@ import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 import type { NextURL } from "next/dist/server/web/next-url";
 import { updateSession } from "@/supabase/middleware";
-import { getEnvironment } from "@/utils/environment/environment";
+import { envService } from "@/services";
 
 jest.mock("@supabase/ssr");
 const createServerClientMock = createServerClient as jest.Mock;
 
-jest.mock("@/utils/environment/environment");
-const getEnvironmentMock = getEnvironment as jest.Mock;
+jest.mock("@/services", () => ({
+  envService: {
+    getSupabaseConfig: jest.fn(),
+  },
+}));
+const getSupabaseConfigMock = envService.getSupabaseConfig as jest.Mock;
 
 jest.mock("next/server", () => {
   return {
@@ -25,11 +29,9 @@ const redirectMock = NextResponse.redirect as jest.Mock;
 
 describe("supabaseMiddleware", () => {
   beforeEach(() => {
-    getEnvironmentMock.mockReturnValue({
-      supabase: {
-        url: "supabase-url",
-        anonKey: "supabase-anon-key",
-      },
+    getSupabaseConfigMock.mockReturnValue({
+      url: "supabase-url",
+      anonKey: "supabase-anon-key",
     });
   });
 

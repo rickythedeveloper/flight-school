@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-import { createSupabaseServerClient } from "@/supabase/server";
+import { authService } from "@/services";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
@@ -14,14 +14,9 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   redirectTo.searchParams.delete("type");
 
   if (token_hash && type === "email") {
-    const supabase = createSupabaseServerClient();
+    const { isSuccess } = await authService.verifyOtp(type, token_hash);
 
-    const { error } = await supabase.auth.verifyOtp({
-      type,
-      token_hash,
-    });
-
-    if (!error) {
+    if (isSuccess) {
       redirectTo.searchParams.delete("next");
       return NextResponse.redirect(redirectTo);
     }
