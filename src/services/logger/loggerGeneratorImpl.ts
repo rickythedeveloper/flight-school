@@ -10,7 +10,7 @@ import type {
 } from "@/services/logger/logger";
 import type { IdGenerator } from "@/services/idGenerator/idGenerator";
 
-export class LoggerImpl implements Logger {
+class LoggerImpl implements Logger {
   private logger: WinstonLogger;
 
   constructor(
@@ -59,7 +59,7 @@ export class LoggerImpl implements Logger {
     logId: string,
     metadata?: LogMetadata,
   ): LogMetadata => ({
-    ...(metadata === undefined ? {} : metadata),
+    metadata,
     logId: logId,
     loggerContext: this.context,
   });
