@@ -19,6 +19,7 @@ module.exports = {
       {
         zones: [
           {
+            // Mantine should only be imported within components folder and a few other exceptions.
             target: [
               "./src/!(app|components|theme.ts)",
               "./src/!(app|components)/**",
@@ -28,6 +29,7 @@ module.exports = {
             from: "./node_modules/@mantine/core",
           },
           {
+            // Supabase server client creation should only be imported by auth service.
             target: [
               "./src/!(services)",
               "./src/!(services)/**",
@@ -37,6 +39,15 @@ module.exports = {
               "./src/services/serverAuthService/!(serverAuthServiceImpl.ts)/**",
             ],
             from: "./src/supabase/server.ts",
+          },
+          {
+            // Implementation of injection should only be imported into injection files.
+            target: [
+              "./src/!(services)",
+              "./src/!(services)/**",
+              "./src/services/**/!(injection.ts|*Impl.test.ts)",
+            ],
+            from: "./src/services/**/*Impl.ts",
           },
         ],
       },
