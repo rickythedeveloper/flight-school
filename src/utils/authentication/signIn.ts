@@ -3,13 +3,14 @@
 import { redirect } from "next/navigation";
 
 import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
-import { authService } from "@/services";
+
+import { serverAuthService } from "@/services/serverAuthService/injection";
 
 export const signIn = async ({
   email,
   password,
 }: AuthCredential): Promise<void> => {
-  const { isSuccess } = await authService.signIn({ email, password });
+  const { isSuccess } = await serverAuthService.signIn({ email, password });
 
   const redirectUrl = isSuccess
     ? "/account"

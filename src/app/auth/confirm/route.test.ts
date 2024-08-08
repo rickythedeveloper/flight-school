@@ -2,15 +2,16 @@ import { describe, expect, jest, test } from "@jest/globals";
 import { NextRequest, NextResponse } from "next/server";
 import type { NextURL } from "next/dist/server/web/next-url";
 import { GET } from "@/app/auth/confirm/route";
-import { authService } from "@/services";
 import type { VerifyOtp } from "@/services/serverAuthService/serverAuthService";
+import { serverAuthService } from "@/services/serverAuthService/injection";
 
-jest.mock("@/services", () => ({
-  authService: {
+jest.mock("@/services/serverAuthService/injection", () => ({
+  serverAuthService: {
     verifyOtp: jest.fn(),
   },
 }));
-const verifyOtpMock = authService.verifyOtp as jest.MockedFunction<VerifyOtp>;
+const verifyOtpMock =
+  serverAuthService.verifyOtp as jest.MockedFunction<VerifyOtp>;
 
 jest.mock("next/server", () => {
   return {

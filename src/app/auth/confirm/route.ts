@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-import { authService } from "@/services";
+import { serverAuthService } from "@/services/serverAuthService/injection";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
@@ -14,7 +14,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   redirectTo.searchParams.delete("type");
 
   if (token_hash && type === "email") {
-    const { isSuccess } = await authService.verifyOtp(type, token_hash);
+    const { isSuccess } = await serverAuthService.verifyOtp(type, token_hash);
 
     if (isSuccess) {
       redirectTo.searchParams.delete("next");

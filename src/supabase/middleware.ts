@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
-import { envService } from "@/services";
+
+import { envService } from "@/services/envService/injection";
 
 const allowedPathsForUnauthenticated = ["/login", "/auth/confirm"] as const;
 

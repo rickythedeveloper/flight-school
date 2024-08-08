@@ -6,14 +6,15 @@ import type {
   AuthCredential,
   SignIn,
 } from "@/services/serverAuthService/serverAuthService";
-import { authService } from "@/services";
 
-jest.mock("@/services", () => ({
-  authService: {
+import { serverAuthService } from "@/services/serverAuthService/injection";
+
+jest.mock("@/services/serverAuthService/injection", () => ({
+  serverAuthService: {
     signIn: jest.fn(),
   },
 }));
-const signInMock = authService.signIn as jest.MockedFunction<SignIn>;
+const signInMock = serverAuthService.signIn as jest.MockedFunction<SignIn>;
 
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),

@@ -4,7 +4,8 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
-import { authService } from "@/services";
+
+import { serverAuthService } from "@/services/serverAuthService/injection";
 
 export const signUp = async ({
   email,
@@ -12,7 +13,7 @@ export const signUp = async ({
 }: AuthCredential): Promise<void> => {
   const origin = headers().get("origin");
 
-  const { isSuccess } = await authService.signUp(
+  const { isSuccess } = await serverAuthService.signUp(
     { email, password },
     `${origin}/auth/callback`,
   );

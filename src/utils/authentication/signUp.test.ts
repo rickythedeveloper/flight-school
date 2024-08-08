@@ -6,19 +6,20 @@ import type {
   AuthCredential,
   SignUp,
 } from "@/services/serverAuthService/serverAuthService";
-import { authService } from "@/services";
+
+import { serverAuthService } from "@/services/serverAuthService/injection";
 
 jest.mock("next/headers", () => ({
   headers: jest.fn(),
 }));
 const headersMock = headers as jest.Mock;
 
-jest.mock("@/services", () => ({
-  authService: {
+jest.mock("@/services/serverAuthService/injection", () => ({
+  serverAuthService: {
     signUp: jest.fn(),
   },
 }));
-const signUpMock = authService.signUp as jest.MockedFunction<SignUp>;
+const signUpMock = serverAuthService.signUp as jest.MockedFunction<SignUp>;
 
 jest.mock("next/navigation", () => ({
   redirect: jest.fn(),

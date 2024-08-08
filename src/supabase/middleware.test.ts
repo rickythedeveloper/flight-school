@@ -3,12 +3,13 @@ import { createServerClient } from "@supabase/ssr";
 import { NextRequest, NextResponse } from "next/server";
 import type { NextURL } from "next/dist/server/web/next-url";
 import { updateSession } from "@/supabase/middleware";
-import { envService } from "@/services";
+
+import { envService } from "@/services/envService/injection";
 
 jest.mock("@supabase/ssr");
 const createServerClientMock = createServerClient as jest.Mock;
 
-jest.mock("@/services", () => ({
+jest.mock("@/services/envService/injection", () => ({
   envService: {
     getSupabaseConfig: jest.fn(),
   },
