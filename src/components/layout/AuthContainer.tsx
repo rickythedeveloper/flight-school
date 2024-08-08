@@ -1,5 +1,5 @@
 import type { ReactElement, ReactNode } from "react";
-import { Center, Container } from "@mantine/core";
+import { Center, Container, Stack } from "@mantine/core";
 
 export function AuthContainer({
   children,
@@ -9,7 +9,7 @@ export function AuthContainer({
   return (
     <Container size={"xs"} h={"100%"}>
       <Center h={"100%"} w={"100%"}>
-        {children}
+        <Stack w={"100%"}>{children}</Stack>
       </Center>
     </Container>
   );

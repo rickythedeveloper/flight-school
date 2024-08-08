@@ -23,7 +23,7 @@ export const SignInSignUpBox = ({
     useState<boolean>(false);
 
   return (
-    <form className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground">
+    <>
       <EmailTextField
         email={email}
         setEmail={setEmail}
@@ -64,6 +64,6 @@ export const SignInSignUpBox = ({
           }
         }}
       />
-    </form>
+    </>
   );
 };
