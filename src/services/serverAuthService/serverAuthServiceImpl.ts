@@ -7,7 +7,7 @@ import type {
 } from "@/services/serverAuthService/serverAuthService";
 import type { EnvService } from "@/services/envService/envService";
 import { createSupabaseServerClient } from "@/supabase/server";
-import type { Logger } from "@/services/logger/logger";
+import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 
 export class ServerAuthServiceImpl implements ServerAuthService {
   private supabase: SupabaseClient;

@@ -1,6 +1,6 @@
 import { describe, expect, jest, test } from "@jest/globals";
 import winston from "winston";
-import { LoggerGeneratorImpl } from "@/services/logger/loggerGeneratorImpl";
+import { LoggerGeneratorImpl } from "@/services/loggerGenerator/loggerGeneratorImpl";
 import type { IdGenerator } from "@/services/idGenerator/idGenerator";
 
 jest.mock("winston", () => {

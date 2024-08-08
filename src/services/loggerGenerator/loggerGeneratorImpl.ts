@@ -7,7 +7,7 @@ import type {
   LoggerContext,
   LoggerGenerator,
   LogMetadata,
-} from "@/services/logger/logger";
+} from "@/services/loggerGenerator/loggerGenerator";
 import type { IdGenerator } from "@/services/idGenerator/idGenerator";
 
 class LoggerImpl implements Logger {
