@@ -1,12 +1,22 @@
 import type { Logger as WinstonLogger } from "winston";
 import winston from "winston";
-import type { Log, Logger } from "@/services/logger/logger";
+import type {
+  CreateLogger,
+  Log,
+  Logger,
+  LoggerContext,
+  LoggerGenerator,
+  LogMetadata,
+} from "@/services/logger/logger";
 import type { IdGenerator } from "@/services/idGenerator/idGenerator";
 
 export class LoggerImpl implements Logger {
   private logger: WinstonLogger;
 
-  constructor(private idGenerator: IdGenerator) {
+  constructor(
+    private context: LoggerContext,
+    private idGenerator: IdGenerator,
+  ) {
     this.logger = winston.createLogger({
       level: "debug",
       format: winston.format.json(),
@@ -23,25 +33,42 @@ export class LoggerImpl implements Logger {
 
   error: Log = (message, metadata) => {
     const logId = this.idGenerator.generate();
-    this.logger.error(message, { ...metadata, logId: logId });
+    this.logger.error(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   warn: Log = (message, metadata) => {
     const logId = this.idGenerator.generate();
-    this.logger.warn(message, { ...metadata, logId: logId });
+    this.logger.warn(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   info: Log = (message, metadata) => {
     const logId = this.idGenerator.generate();
-    this.logger.info(message, { ...metadata, logId: logId });
+    this.logger.info(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   debug: Log = (message, metadata) => {
     const logId = this.idGenerator.generate();
-    this.logger.debug(message, { ...metadata, logId: logId });
+    this.logger.debug(message, this.createLogMetadata(logId, metadata));
     return logId;
+  };
+
+  private createLogMetadata = (
+    logId: string,
+    metadata?: LogMetadata,
+  ): LogMetadata => ({
+    ...(metadata === undefined ? {} : metadata),
+    logId: logId,
+    loggerContext: this.context,
+  });
+}
+
+export class LoggerGeneratorImpl implements LoggerGenerator {
+  constructor(private idGenerator: IdGenerator) {}
+
+  createLogger: CreateLogger = (loggerContext) => {
+    return new LoggerImpl(loggerContext, this.idGenerator);
   };
 }
