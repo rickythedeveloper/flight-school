@@ -10,7 +10,7 @@
     "style": "prettier . --write",
     "typeCheck": "tsc --noEmit",
     "check": "npm run style && npm run lint && npm run typeCheck",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test-storybook": "test-storybook",
     "test-storybook:ci": "storybook build --quiet && start-server-and-test 'http-server storybook-static --port 6010 --silent' http://localhost:6010 'npm run test-storybook'",
