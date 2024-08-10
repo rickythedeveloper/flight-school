@@ -37,7 +37,7 @@ describe("authConfirmRoute", () => {
     expect(verifyOtpMock).toHaveBeenCalledWith("email", "123456");
   });
 
-  test("redirects to account if verification succeeds", async () => {
+  test("redirects to profile if verification succeeds", async () => {
     const request = new NextRequest(
       "http://localhost:3000/auth/confirm?type=email&token_hash=123456",
     );
@@ -48,7 +48,7 @@ describe("authConfirmRoute", () => {
     expect(verifyOtpMock).toHaveBeenCalledWith("email", "123456");
 
     const redirectUrl = redirectMock.mock.calls[0][0] as NextURL;
-    expect(redirectUrl.pathname).toBe("/account");
+    expect(redirectUrl.pathname).toBe("/profile");
   });
 
   test("redirects to error if verification fails", async () => {

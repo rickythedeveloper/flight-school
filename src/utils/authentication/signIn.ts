@@ -17,8 +17,8 @@ export const signIn = async ({
 
   const redirectUrl = isSuccess
     ? hasProfile
-      ? "/account"
-      : "/profile-setup"
+      ? "/profile"
+      : "/profile/edit"
     : "/login?message=Could not authenticate user";
 
   return redirect(redirectUrl);

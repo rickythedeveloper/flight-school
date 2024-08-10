@@ -44,16 +44,16 @@ describe("signIn", () => {
 
     expect(signInMock).toHaveBeenCalledWith(validCredentials);
     const redirectUrl = redirectMock.mock.calls[0][0];
-    expect(redirectUrl).toBe("/profile-setup");
+    expect(redirectUrl).toBe("/profile/edit");
   });
 
-  test("redirects to account if sign in succeeds", async () => {
+  test("redirects to profile if sign in succeeds", async () => {
     signInMock.mockResolvedValue({ isSuccess: true, hasProfile: true });
 
     await signIn(validCredentials);
 
     expect(signInMock).toHaveBeenCalledWith(validCredentials);
     const redirectUrl = redirectMock.mock.calls[0][0];
-    expect(redirectUrl).toBe("/account");
+    expect(redirectUrl).toBe("/profile");
   });
 });

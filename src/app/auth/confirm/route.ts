@@ -9,7 +9,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   const redirectTo = request.nextUrl.clone();
 
-  redirectTo.pathname = "/account";
+  redirectTo.pathname = "/profile";
   redirectTo.searchParams.delete("token_hash");
   redirectTo.searchParams.delete("type");
 
