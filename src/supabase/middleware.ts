@@ -1,6 +1,7 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
+import type { Supabase } from "../../supabase/supabase.types";
 import { envService } from "@/services/envService/injection";
 
 const allowedPathsForUnauthenticated = ["/login", "/auth/confirm"] as const;
@@ -14,7 +15,6 @@ const pathnameIsAllowedForUnauthenticated = (pathname: string): boolean => {
 export const updateSession = async (
   request: NextRequest,
 ): Promise<NextResponse> => {
-  // Unmodified response
   let response = NextResponse.next({
     request: {
       headers: request.headers,
@@ -23,10 +23,13 @@ export const updateSession = async (
 
   const supabaseConfig = envService.getSupabaseConfig();
 
-  const supabase = createServerClient(
+  const supabase: Supabase = createServerClient(
     supabaseConfig.url,
     supabaseConfig.anonKey,
     {
+      db: {
+        schema: "flight_school",
+      },
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -52,12 +55,13 @@ export const updateSession = async (
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isAuthenticated = user !== null;
-
   if (
-    !isAuthenticated &&
-    !pathnameIsAllowedForUnauthenticated(request.nextUrl.pathname)
+    !pathnameIsAllowedForUnauthenticated(request.nextUrl.pathname) &&
+    user === null
   ) {
+    console.info(
+      "User is unauthenticated but tried to access content requiring authentication. Redirecting to login.",
+    );
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);

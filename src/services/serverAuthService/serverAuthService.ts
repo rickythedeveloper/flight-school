@@ -3,9 +3,15 @@ export interface AuthCredential {
   password: string;
 }
 
-interface SignInResult {
-  isSuccess: boolean;
-}
+type SignInResult =
+  | {
+      isSuccess: false;
+      hasProfile: null;
+    }
+  | {
+      isSuccess: true;
+      hasProfile: boolean;
+    };
 
 interface SignUpResult {
   isSuccess: boolean;

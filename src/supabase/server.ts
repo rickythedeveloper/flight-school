@@ -1,11 +1,11 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
-import type { SupabaseClient } from "@supabase/supabase-js";
+import type { Supabase } from "../../supabase/supabase.types";
 
 export const createSupabaseServerClient = (config: {
   url: string;
   anonKey: string;
-}): SupabaseClient => {
+}): Supabase => {
   const cookieStore = cookies();
 
   return createServerClient(config.url, config.anonKey, {
@@ -24,6 +24,9 @@ export const createSupabaseServerClient = (config: {
           // user sessions.
         }
       },
+    },
+    db: {
+      schema: "flight_school",
     },
   });
 };

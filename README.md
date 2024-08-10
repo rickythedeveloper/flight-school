@@ -17,6 +17,6 @@
 - `npx supabase link --project-ref <project_id>`
 - `npx supabase db reset`
 - `npx supabase migration new <migration_name>`
-- `supabase db diff -f <migration_name>`
+- `npx supabase db diff -f <migration_name>`
 - `npx supabase migration up`
 - `npx supabase functions deploy <function_name>`

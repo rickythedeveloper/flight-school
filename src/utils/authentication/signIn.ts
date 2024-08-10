@@ -10,10 +10,15 @@ export const signIn = async ({
   email,
   password,
 }: AuthCredential): Promise<void> => {
-  const { isSuccess } = await serverAuthService.signIn({ email, password });
+  const { isSuccess, hasProfile } = await serverAuthService.signIn({
+    email,
+    password,
+  });
 
   const redirectUrl = isSuccess
-    ? "/account"
+    ? hasProfile
+      ? "/account"
+      : "/profile-setup"
     : "/login?message=Could not authenticate user";
 
   return redirect(redirectUrl);

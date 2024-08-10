@@ -4,7 +4,7 @@ import { envService } from "@/services/envService/injection";
 import { loggerGenerator } from "@/services/loggerGenerator/injection";
 
 const authServiceLogger = loggerGenerator.createLogger({
-  name: "auth service logger",
+  name: "auth service",
 });
 
 export const serverAuthService: ServerAuthService = new ServerAuthServiceImpl(

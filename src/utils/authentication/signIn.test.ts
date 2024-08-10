@@ -28,7 +28,7 @@ const validCredentials: AuthCredential = {
 
 describe("signIn", () => {
   test("redirect to login page if sign in fails", async () => {
-    signInMock.mockResolvedValue({ isSuccess: false });
+    signInMock.mockResolvedValue({ isSuccess: false, hasProfile: null });
 
     await signIn(validCredentials);
 
@@ -37,8 +37,18 @@ describe("signIn", () => {
     expect(redirectUrl).toBe("/login?message=Could not authenticate user");
   });
 
+  test("redirects to profile setup if sign in succeeds but no profile is found", async () => {
+    signInMock.mockResolvedValue({ isSuccess: true, hasProfile: false });
+
+    await signIn(validCredentials);
+
+    expect(signInMock).toHaveBeenCalledWith(validCredentials);
+    const redirectUrl = redirectMock.mock.calls[0][0];
+    expect(redirectUrl).toBe("/profile-setup");
+  });
+
   test("redirects to account if sign in succeeds", async () => {
-    signInMock.mockResolvedValue({ isSuccess: true });
+    signInMock.mockResolvedValue({ isSuccess: true, hasProfile: true });
 
     await signIn(validCredentials);
 
