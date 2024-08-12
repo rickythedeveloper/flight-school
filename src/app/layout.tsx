@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import type { ReactElement, ReactNode } from "react";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { theme } from "@/theme";
+import { PageContainer } from "@/components/layout/PageContainer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,7 +23,9 @@ export default function RootLayout({
       </head>
 
       <body className={"h-full w-full"}>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
+        <MantineProvider theme={theme}>
+          <PageContainer>{children}</PageContainer>
+        </MantineProvider>
       </body>
     </html>
   );

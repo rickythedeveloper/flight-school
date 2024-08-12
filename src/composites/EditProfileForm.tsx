@@ -2,6 +2,7 @@ import type { ReactElement } from "react";
 import { useCallback, useState } from "react";
 import { TextField } from "@/components/inputs/textInputs/TextField";
 import { Button } from "@/components/buttons/Button";
+import { Stack } from "@/components/layout/Stack";
 
 interface EditProfileFormProps {
   saveProfile: (profile: { firstName: string; lastName: string }) => void;
@@ -25,7 +26,7 @@ export function EditProfileForm({
   }, [firstName, lastName, saveProfile]);
 
   return (
-    <>
+    <Stack align={"center"}>
       <TextField
         label={"First Name"}
         value={firstName}
@@ -51,6 +52,6 @@ export function EditProfileForm({
         onClick={saveProfileWithCurrentData}
         disabled={shouldDisableSaveButton}
       />
-    </>
+    </Stack>
   );
 }
