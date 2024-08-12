@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { expect, fn, userEvent, within } from "@storybook/test";
 import { SignInSignUpBox } from "./SignInSignUpBox";
+import { typeText } from "@/storybook-utils/typeText";
 
 const meta = {
   component: SignInSignUpBox,
@@ -69,18 +70,14 @@ const fillForm = async (
     const emailInput = canvas.getByLabelText(/^Email/, {
       selector: "input",
     });
-    await userEvent.type(emailInput, emailAddress, {
-      delay: 30,
-    });
+    await typeText(emailInput, emailAddress);
   }
 
   if (password) {
     const passwordInput = canvas.getByLabelText(/^Password/, {
       selector: "input",
     });
-    await userEvent.type(passwordInput, password, {
-      delay: 30,
-    });
+    await typeText(passwordInput, password);
   }
 };
 

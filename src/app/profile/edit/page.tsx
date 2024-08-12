@@ -1,10 +1,10 @@
 import type { ReactElement } from "react";
-import { EditProfileForm } from "@/app/profile/edit/EditProfileForm";
+import { EditProfilePage } from "@/app/profile/edit/EditProfilePage";
 
 export default function ProfileEdit(): ReactElement {
   return (
     <main>
-      <EditProfileForm />
+      <EditProfilePage />
     </main>
   );
 }

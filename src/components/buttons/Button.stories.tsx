@@ -15,5 +15,6 @@ export const Default: Story = {
   args: {
     title: "Button",
     onClick: fn(),
+    disabled: false,
   },
 };

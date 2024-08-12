@@ -1,25 +1,28 @@
-'use client'
-
 import type { ReactElement } from "react";
 import { useCallback, useState } from "react";
 import { TextField } from "@/components/inputs/textInputs/TextField";
 import { Button } from "@/components/buttons/Button";
-import { saveProfile } from "@/serverActions/profile/saveProfile";
 
-export function EditProfileForm(): ReactElement {
+interface EditProfileFormProps {
+  saveProfile: (profile: { firstName: string; lastName: string }) => void;
+}
+
+export function EditProfileForm({
+  saveProfile,
+}: EditProfileFormProps): ReactElement {
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [hasAttemptedSaving, setHasAttemptedSaving] = useState<boolean>(false);
 
-  const shouldDisableSaveButton = !firstName || !lastName
+  const shouldDisableSaveButton = !firstName || !lastName;
 
-  const saveProfileWithCurrentData = useCallback(() => {
+  const saveProfileWithCurrentData = useCallback(async () => {
     setHasAttemptedSaving(true);
 
     if (firstName && lastName) {
       saveProfile({ firstName, lastName });
     }
-  }, [firstName, lastName]);
+  }, [firstName, lastName, saveProfile]);
 
   return (
     <>
@@ -43,7 +46,11 @@ export function EditProfileForm(): ReactElement {
           hasAttemptedSaving && !lastName ? "Last name cannot be empty" : false
         }
       />
-      <Button title={"Save"} onClick={saveProfileWithCurrentData} disabled={shouldDisableSaveButton} />
+      <Button
+        title={"Save"}
+        onClick={saveProfileWithCurrentData}
+        disabled={shouldDisableSaveButton}
+      />
     </>
   );
 }
