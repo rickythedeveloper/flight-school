@@ -1,7 +1,7 @@
 import { describe, expect, jest, test } from "@jest/globals";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { signUp } from "@/utils/authentication/signUp";
+import { signUp } from "@/serverActions/authentication/signUp";
 import type {
   AuthCredential,
   SignUp,

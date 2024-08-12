@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 import { SignInSignUpBox } from "@/composites/SignInSignUpBox";
-import { signIn } from "@/utils/authentication/signIn";
-import { signUp } from "@/utils/authentication/signUp";
+import { signIn } from "@/serverActions/authentication/signIn";
+import { signUp } from "@/serverActions/authentication/signUp";
 import { AuthContainer } from "@/components/layout/AuthContainer";
 
 export default function Login(): ReactElement {

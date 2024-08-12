@@ -1,6 +1,6 @@
 import { describe, expect, jest, test } from "@jest/globals";
 import { redirect } from "next/navigation";
-import { signIn } from "@/utils/authentication/signIn";
+import { signIn } from "@/serverActions/authentication/signIn";
 
 import type {
   AuthCredential,

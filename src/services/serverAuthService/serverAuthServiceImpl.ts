@@ -1,27 +1,22 @@
 import type { Supabase } from "../../../supabase/supabase.types";
 import type {
+  GetUserId,
   ServerAuthService,
   SignIn,
   SignUp,
   VerifyOtp,
 } from "@/services/serverAuthService/serverAuthService";
-import type { EnvService } from "@/services/envService/envService";
-import { createSupabaseServerClient } from "@/supabase/server";
 import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
+import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 
 export class ServerAuthServiceImpl implements ServerAuthService {
   private supabase: Supabase;
 
   constructor(
-    envService: EnvService,
+    supabaseService: SupabaseService,
     private logger: Logger,
   ) {
-    const supabaseConfig = envService.getSupabaseConfig();
-
-    this.supabase = createSupabaseServerClient({
-      url: supabaseConfig.url,
-      anonKey: supabaseConfig.anonKey,
-    });
+    this.supabase = supabaseService.createServerClient();
   }
 
   signIn: SignIn = async (credential) => {
@@ -93,5 +88,10 @@ export class ServerAuthServiceImpl implements ServerAuthService {
       token_hash: tokenHash,
     });
     return { isSuccess: error === null };
+  };
+
+  getUserId: GetUserId = async () => {
+    const { data } = await this.supabase.auth.getUser();
+    return data?.user?.id ?? null;
   };
 }

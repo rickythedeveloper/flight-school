@@ -30,9 +30,11 @@ export type VerifyOtp = (
   type: "email",
   tokenHash: string,
 ) => Promise<VerifyOtpResult>;
+export type GetUserId = () => Promise<string | null>;
 
 export interface ServerAuthService {
   signIn: SignIn;
   signUp: SignUp;
   verifyOtp: VerifyOtp;
+  getUserId: GetUserId;
 }
