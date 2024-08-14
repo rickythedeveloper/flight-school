@@ -9,13 +9,13 @@ import { PasswordTextField } from "@/components/inputs/textInputs/PasswordTextFi
 import type { AuthCredential } from "@/services/serverAuthService/serverAuthService";
 
 export interface SignInSignUpBoxProps {
-  signIn: (credential: AuthCredential) => void;
-  signUp: (credential: AuthCredential) => void;
+  signInAction: (credential: AuthCredential) => void;
+  signUpAction: (credential: AuthCredential) => void;
 }
 
 export const SignInSignUpBox = ({
-  signIn,
-  signUp,
+  signInAction,
+  signUpAction,
 }: SignInSignUpBoxProps): ReactElement => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -49,7 +49,7 @@ export const SignInSignUpBox = ({
           setRequiresNonEmptyFields(true);
 
           if (email && password) {
-            signIn({ email, password });
+            signInAction({ email, password });
           }
         }}
       />
@@ -60,7 +60,7 @@ export const SignInSignUpBox = ({
           setRequiresNonEmptyFields(true);
 
           if (email && password) {
-            signUp({ email, password });
+            signUpAction({ email, password });
           }
         }}
       />

@@ -20,3 +20,10 @@
 - `npx supabase db diff -f <migration_name>`
 - `npx supabase migration up`
 - `npx supabase functions deploy <function_name>`
+
+### Playwright
+
+- `npx playwright test`
+- `npx playwright test --ui`
+- `npx playwright test --debug`
+  `

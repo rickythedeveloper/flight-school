@@ -1,4 +1,3 @@
-import type { Supabase } from "../../../supabase/supabase.types";
 import type {
   GetUserId,
   ServerAuthService,
@@ -10,19 +9,18 @@ import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 
 export class ServerAuthServiceImpl implements ServerAuthService {
-  private supabase: Supabase;
-
   constructor(
-    supabaseService: SupabaseService,
+    private supabaseService: SupabaseService,
     private logger: Logger,
-  ) {
-    this.supabase = supabaseService.createServerClient();
-  }
+  ) {}
 
   signIn: SignIn = async (credential) => {
     this.logger.info("Signing in with password.");
+
+    const supabase = this.supabaseService.createServerClient();
     const { error: signInError, data: signInData } =
-      await this.supabase.auth.signInWithPassword(credential);
+      await supabase.auth.signInWithPassword(credential);
+
     if (signInError) {
       this.logger.warn("Sign in failed.", { error: signInError });
       return { isSuccess: false, hasProfile: null };
@@ -37,7 +35,7 @@ export class ServerAuthServiceImpl implements ServerAuthService {
       count: profileCount,
       status,
       statusText,
-    } = await this.supabase
+    } = await supabase
       .from("profile")
       .select("*", { count: "exact", head: true })
       .eq("id", user.id);
@@ -68,7 +66,8 @@ export class ServerAuthServiceImpl implements ServerAuthService {
 
   signUp: SignUp = async (credential, redirectUrl) => {
     this.logger.info("Signing up.");
-    const { error } = await this.supabase.auth.signUp({
+    const supabase = this.supabaseService.createServerClient();
+    const { error } = await supabase.auth.signUp({
       ...credential,
       options: {
         emailRedirectTo: redirectUrl,
@@ -83,7 +82,8 @@ export class ServerAuthServiceImpl implements ServerAuthService {
   };
 
   verifyOtp: VerifyOtp = async (type, tokenHash) => {
-    const { error } = await this.supabase.auth.verifyOtp({
+    const supabase = this.supabaseService.createServerClient();
+    const { error } = await supabase.auth.verifyOtp({
       type,
       token_hash: tokenHash,
     });
@@ -91,7 +91,8 @@ export class ServerAuthServiceImpl implements ServerAuthService {
   };
 
   getUserId: GetUserId = async () => {
-    const { data } = await this.supabase.auth.getUser();
+    const supabase = this.supabaseService.createServerClient();
+    const { data } = await supabase.auth.getUser();
     return data?.user?.id ?? null;
   };
 }

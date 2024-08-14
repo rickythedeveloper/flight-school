@@ -1,5 +1,7 @@
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
+import type { Supabase } from "../../../supabase/supabase.types";
 import type { EnvService } from "@/services/envService/envService";
-import { createSupabaseServerClient } from "@/supabase/server";
 import type {
   CreateServerClient,
   SupabaseService,
@@ -16,3 +18,32 @@ export class SupabaseServiceImpl implements SupabaseService {
     });
   };
 }
+
+const createSupabaseServerClient = (config: {
+  url: string;
+  anonKey: string;
+}): Supabase => {
+  const cookieStore = cookies();
+  return createServerClient(config.url, config.anonKey, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch (error) {
+          // The `set` method was called from a Server Component.
+          // This can be ignored if you have middleware refreshing
+          // user sessions.
+          console.error(error);
+        }
+      },
+    },
+    db: {
+      schema: "flight_school",
+    },
+  });
+};

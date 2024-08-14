@@ -7,8 +7,8 @@ import { typeText } from "@/storybook-utils/typeText";
 const meta = {
   component: SignInSignUpBox,
   args: {
-    signIn: fn(),
-    signUp: fn(),
+    signInAction: fn(),
+    signUpAction: fn(),
   },
 } satisfies Meta<typeof SignInSignUpBox>;
 
@@ -26,8 +26,8 @@ export const SuccessfulSignIn: Story = {
     await fillForm(canvasElement, emailAddress, password);
     await clickSignIn(canvasElement);
 
-    await expect(args.signIn).toHaveBeenCalledOnce();
-    await expect(args.signUp).not.toHaveBeenCalled();
+    await expect(args.signInAction).toHaveBeenCalledOnce();
+    await expect(args.signUpAction).not.toHaveBeenCalled();
   },
 };
 
@@ -39,8 +39,8 @@ export const SuccessfulSignUp: Story = {
     await fillForm(canvasElement, emailAddress, password);
     await clickSignUp(canvasElement);
 
-    await expect(args.signIn).not.toHaveBeenCalled();
-    await expect(args.signUp).toHaveBeenCalledOnce();
+    await expect(args.signInAction).not.toHaveBeenCalled();
+    await expect(args.signUpAction).toHaveBeenCalledOnce();
   },
 };
 
@@ -52,8 +52,8 @@ export const AttemptSignInWithoutEmail: Story = {
     await fillForm(canvasElement, emailAddress, password);
     await clickSignIn(canvasElement);
 
-    await expect(args.signIn).not.toHaveBeenCalled();
-    await expect(args.signUp).not.toHaveBeenCalled();
+    await expect(args.signInAction).not.toHaveBeenCalled();
+    await expect(args.signUpAction).not.toHaveBeenCalled();
 
     await assertEmptyEmailTextIsDisplayed(canvasElement);
   },

@@ -29,18 +29,6 @@ module.exports = {
             from: "./node_modules/@mantine/core",
           },
           {
-            // Supabase server client creation should only be imported by auth service.
-            target: [
-              "./src/!(services)",
-              "./src/!(services)/**",
-              "./src/services/!(supabaseService)",
-              "./src/services/!(supabaseService)/**",
-              "./src/services/supabaseService/!(supabaseServiceImpl.ts)",
-              "./src/services/supabaseService/!(supabaseServiceImpl.ts)/**",
-            ],
-            from: "./src/supabase/server.ts",
-          },
-          {
             // Implementation of injection should only be imported into injection files.
             target: [
               "./src/!(services)",

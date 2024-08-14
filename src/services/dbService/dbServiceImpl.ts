@@ -1,19 +1,14 @@
-import type { Supabase } from "../../../supabase/supabase.types";
 import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 import type { DbService, SaveProfile } from "@/services/dbService/dbService";
 import type { ServerAuthService } from "@/services/serverAuthService/serverAuthService";
 
 export class DbServiceImpl implements DbService {
-  private supabase: Supabase;
-
   constructor(
-    supabaseService: SupabaseService,
+    private supabaseService: SupabaseService,
     private serverAuthService: ServerAuthService,
     private logger: Logger,
-  ) {
-    this.supabase = supabaseService.createServerClient();
-  }
+  ) {}
 
   saveProfile: SaveProfile = async (profile) => {
     const userId = await this.serverAuthService.getUserId();
@@ -26,7 +21,9 @@ export class DbServiceImpl implements DbService {
       return { isSuccess: false };
     }
 
-    const { error, status, statusText } = await this.supabase
+    const supabase = this.supabaseService.createServerClient();
+
+    const { error, status, statusText } = await supabase
       .from("profile")
       .upsert({
         id: userId,

@@ -7,7 +7,7 @@ import { AuthContainer } from "@/components/layout/AuthContainer";
 export default function Login(): ReactElement {
   return (
     <AuthContainer>
-      <SignInSignUpBox signIn={signIn} signUp={signUp} />
+      <SignInSignUpBox signInAction={signIn} signUpAction={signUp} />
     </AuthContainer>
   );
 }
