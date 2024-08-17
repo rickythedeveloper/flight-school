@@ -1,4 +1,4 @@
-import type { Locator, Page} from "@playwright/test";
+import type { Locator, Page } from "@playwright/test";
 import { test } from "@playwright/test";
 
 test("Sign up and sign in", async ({ page }) => {

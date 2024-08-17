@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { serverAuthService } from "@/services/serverAuthService/injection";
+import { pathService } from "@/services/pathService/injection";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
@@ -9,7 +10,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   const redirectTo = request.nextUrl.clone();
 
-  redirectTo.pathname = "/profile";
+  redirectTo.pathname = pathService.profile.url;
   redirectTo.searchParams.delete("token_hash");
   redirectTo.searchParams.delete("type");
 

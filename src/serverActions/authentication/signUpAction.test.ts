@@ -1,7 +1,6 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import { redirect } from "next/navigation";
 import { headers } from "next/headers";
-import { signUp } from "@/serverActions/authentication/signUp";
+import { signUpAction } from "@/serverActions/authentication/signUpAction";
 import type {
   AuthCredential,
   SignUp,
@@ -21,45 +20,39 @@ jest.mock("@/services/serverAuthService/injection", () => ({
 }));
 const signUpMock = serverAuthService.signUp as jest.MockedFunction<SignUp>;
 
-jest.mock("next/navigation", () => ({
-  redirect: jest.fn(),
-}));
-const redirectMock = redirect as jest.MockedFunction<(url: string) => never>;
-
 const validCredentials: AuthCredential = {
   email: "test@example.com",
   password: "testPassword",
 };
 
 describe("signUp", () => {
-  test("redirect to login page with error message if sign up fails", async () => {
+  test("returns failure if sign up fails", async () => {
     mockHeaders({ origin: "localhost:3000" });
     signUpMock.mockResolvedValue({ isSuccess: false });
 
-    await signUp(validCredentials);
+    const result = await signUpAction(validCredentials);
 
     expect(signUpMock).toHaveBeenCalledWith(
       validCredentials,
       "localhost:3000/auth/callback",
     );
-    const redirectUrl = redirectMock.mock.calls[0][0];
-    expect(redirectUrl).toBe("/login?message=Could not authenticate user");
+    expect(result).toStrictEqual({ isSuccess: false, error: undefined });
   });
 
-  test("redirects to login page with success message if sign in succeeds", async () => {
+  test("returns success if sign up succeeds", async () => {
     mockHeaders({ origin: "localhost:3000" });
     signUpMock.mockResolvedValue({ isSuccess: true });
 
-    await signUp(validCredentials);
+    const result = await signUpAction(validCredentials);
 
     expect(signUpMock).toHaveBeenCalledWith(
       validCredentials,
       "localhost:3000/auth/callback",
     );
-    const redirectUrl = redirectMock.mock.calls[0][0];
-    expect(redirectUrl).toBe(
-      "/login?message=Check email to continue sign in process",
-    );
+    expect(result).toStrictEqual({
+      isSuccess: true,
+      data: { action: "checkEmail" },
+    });
   });
 });
 

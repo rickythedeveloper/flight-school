@@ -8,4 +8,5 @@ module.exports = {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
   clearMocks: true,
+  testPathIgnorePatterns: ["/node_modules/", "/tests/e2e/"],
 };

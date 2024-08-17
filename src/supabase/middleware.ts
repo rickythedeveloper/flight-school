@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 
 import type { Supabase } from "../../supabase/supabase.types";
 import { envService } from "@/services/envService/injection";
+import { pathService } from "@/services/pathService/injection";
 
 const allowedPathsForUnauthenticated = ["/login", "/auth/confirm"] as const;
 
@@ -63,7 +64,7 @@ export const updateSession = async (
       "User is unauthenticated but tried to access content requiring authentication. Redirecting to login.",
     );
     const url = request.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = pathService.login.url;
     return NextResponse.redirect(url);
   }
 
