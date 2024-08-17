@@ -1,5 +1,4 @@
 import { type NextRequest, NextResponse } from "next/server";
-
 import { serverAuthService } from "@/services/serverAuthService/injection";
 import { pathService } from "@/services/pathService/injection";
 

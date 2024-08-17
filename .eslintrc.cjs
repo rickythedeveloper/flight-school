@@ -37,6 +37,16 @@ module.exports = {
             ],
             from: "./src/services/**/*Impl.ts",
           },
+          {
+            // Non e2e files cannot import from e2e files
+            target: ["./src/!(e2e)", "./src/!(e2e)/**"],
+            from: "./src/e2e/**",
+          },
+          {
+            // Storybook utils can only be imported within storybook files
+            target: ["./src/**/!(*.stories.tsx)"],
+            from: "./src/storybook-utils/**",
+          },
         ],
       },
     ],

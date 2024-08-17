@@ -1,10 +1,13 @@
 import type { Locator, Page } from "@playwright/test";
 import { test } from "@playwright/test";
+import { generateRandomString } from "./utils/generateRandomString";
 
 test("Sign up and sign in", async ({ page }) => {
   await page.goto("/login");
 
-  await getEmailInputLocator(page).fill("test@example.com");
+  const email = `test-${generateRandomString()}@example.com`;
+
+  await getEmailInputLocator(page).fill(email);
   await getPasswordInputLocator(page).fill("test123");
   await getSignUpButton(page).click();
   await getSignInButton(page).click();
