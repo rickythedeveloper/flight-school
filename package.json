@@ -16,8 +16,9 @@
     "test-storybook:ci": "storybook build --quiet && start-server-and-test 'http-server storybook-static --port 6010 --silent' http://localhost:6010 'npm run test-storybook'",
     "test-playwright": "playwright test",
     "test-playwright:ui": "playwright test --ui",
+    "test-playwright:ci": "start-server-and-test dev http://localhost:3000 'npm run test-playwright'",
     "test": "jest && npm run test-storybook && npm run test-playwright",
-    "test:ci": "jest && npm run test-storybook:ci && npm run test-playwright"
+    "test:ci": "jest && npm run test-storybook:ci && npm run test-playwright:ci"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",
