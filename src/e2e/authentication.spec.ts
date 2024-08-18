@@ -1,5 +1,5 @@
 import type { Locator, Page } from "@playwright/test";
-import { test } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import { generateRandomString } from "./utils/generateRandomString";
 
 test("Sign up and sign in", async ({ page }) => {
@@ -16,6 +16,11 @@ test("Sign up and sign in", async ({ page }) => {
 
   await getFirstNameInput(page).fill("First");
   await getLastNameInput(page).fill("Last");
+  await getSaveButton(page).click();
+
+  await page.waitForURL("/profile");
+
+  await expect(page.getByText("First Last")).toBeVisible();
 });
 
 const getEmailInputLocator = (page: Page): Locator =>
@@ -31,3 +36,5 @@ const getFirstNameInput = (page: Page): Locator =>
   page.getByLabel("First Name *");
 const getLastNameInput = (page: Page): Locator =>
   page.getByLabel("Last Name *");
+const getSaveButton = (page: Page): Locator =>
+  page.getByRole("button", { name: "Save" });
