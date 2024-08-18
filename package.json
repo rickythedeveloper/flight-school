@@ -17,8 +17,8 @@
     "test-playwright": "playwright test",
     "test-playwright:ui": "playwright test --ui",
     "test-playwright:ci": "start-server-and-test dev http://localhost:3000 'npm run test-playwright'",
-    "test": "jest && npm run test-storybook && npm run test-playwright",
-    "test:ci": "jest && npm run test-storybook:ci && npm run test-playwright:ci"
+    "unit-test": "jest",
+    "test": "npm run unit-test && npm run test-storybook && npm run test-playwright"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",
