@@ -29,7 +29,7 @@
     "react": "^18",
     "react-dom": "^18",
     "uuid": "^10.0.0",
-    "winston": "^3.14.0"
+    "winston": "^3.14.2"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.6.1",
