@@ -26,7 +26,7 @@ describe("signIn", () => {
 
     const result = await signInAction(validCredentials);
 
-    expect(result).toStrictEqual({ isSuccess: false, error: undefined });
+    expect(result).toStrictEqual({ isSuccess: false });
   });
 
   test("returns success if sign in succeeds but no profile is found", async () => {

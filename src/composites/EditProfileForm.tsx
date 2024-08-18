@@ -1,16 +1,20 @@
 import type { ReactElement } from "react";
 import { useCallback, useState } from "react";
+import { useRouter } from "next/navigation";
 import { TextField } from "@/components/inputs/textInputs/TextField";
 import { Button } from "@/components/buttons/Button";
 import { Stack } from "@/components/layout/Stack";
+import type { SaveProfileAction } from "@/serverActions/profile/saveProfileAction";
+import { pathService } from "@/services/pathService/injection";
 
 interface EditProfileFormProps {
-  saveProfile: (profile: { firstName: string; lastName: string }) => void;
+  saveProfile: SaveProfileAction;
 }
 
 export function EditProfileForm({
   saveProfile,
 }: EditProfileFormProps): ReactElement {
+  const router = useRouter();
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [hasAttemptedSaving, setHasAttemptedSaving] = useState<boolean>(false);
@@ -21,9 +25,12 @@ export function EditProfileForm({
     setHasAttemptedSaving(true);
 
     if (firstName && lastName) {
-      saveProfile({ firstName, lastName });
+      const result = await saveProfile({ firstName, lastName });
+      if (result.isSuccess) {
+        router.push(pathService.profile.url);
+      }
     }
-  }, [firstName, lastName, saveProfile]);
+  }, [firstName, lastName, router, saveProfile]);
 
   return (
     <Stack align={"center"}>

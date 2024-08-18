@@ -2,8 +2,8 @@
 
 import type { ReactElement } from "react";
 import { EditProfileForm } from "@/composites/EditProfileForm";
-import { saveProfile } from "@/serverActions/profile/saveProfile";
+import { saveProfileAction } from "@/serverActions/profile/saveProfileAction";
 
 export function EditProfilePage(): ReactElement {
-  return <EditProfileForm saveProfile={saveProfile} />;
+  return <EditProfileForm saveProfile={saveProfileAction} />;
 }

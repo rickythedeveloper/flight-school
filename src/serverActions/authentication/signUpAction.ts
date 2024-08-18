@@ -6,12 +6,16 @@ import { serverAuthService } from "@/services/serverAuthService/injection";
 import type { OperationResult } from "@/utils/OperationResult";
 
 type SignUpData = { action: "checkEmail" };
+type SignUpResult = OperationResult<SignUpData, undefined>;
 
 export type SignUpAction = (
   credential: AuthCredential,
-) => Promise<OperationResult<SignUpData, undefined>>;
+) => Promise<SignUpResult>;
 
-export const signUpAction: SignUpAction = async ({ email, password }) => {
+export const signUpAction: SignUpAction = async ({
+  email,
+  password,
+}): Promise<SignUpResult> => {
   const origin = headers().get("origin");
 
   const { isSuccess } = await serverAuthService.signUp(
@@ -28,6 +32,5 @@ export const signUpAction: SignUpAction = async ({ email, password }) => {
 
   return {
     isSuccess: false,
-    error: undefined,
   };
 };

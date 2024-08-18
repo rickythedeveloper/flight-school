@@ -1,27 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { expect, fn, userEvent, within } from "@storybook/test";
-import type { ReactElement } from "react";
 import { EditProfileForm } from "./EditProfileForm";
 import { typeText } from "@/storybook-utils/typeText";
 
-const saveProfile = fn<[{ firstName: string; lastName: string }], void>();
-
-const EditProfileFormStory = (): ReactElement => (
-  <EditProfileForm saveProfile={saveProfile} />
-);
-
 const meta = {
-  component: EditProfileFormStory,
-} satisfies Meta<typeof EditProfileFormStory>;
+  component: EditProfileForm,
+  args: {
+    saveProfile: fn(),
+  },
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
+} satisfies Meta<typeof EditProfileForm>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const SaveWithFirstAndLastName: Story = {
-  play: async ({ canvasElement }) => {
-    saveProfile.mockResolvedValue();
+  play: async ({ args, canvasElement }) => {
+    args.saveProfile.mockResolvedValue({ isSuccess: true });
 
     const firstNameInput = getFirstNameInput(canvasElement);
     const lastNameInput = getLastNameInput(canvasElement);
@@ -32,7 +33,7 @@ export const SaveWithFirstAndLastName: Story = {
 
     await userEvent.click(saveButton);
 
-    await expect(saveProfile).toHaveBeenCalledWith({
+    await expect(args.saveProfile).toHaveBeenCalledWith({
       firstName: "First",
       lastName: "Last",
     });
@@ -40,8 +41,8 @@ export const SaveWithFirstAndLastName: Story = {
 };
 
 export const AttemptSaveWithoutLastName: Story = {
-  play: async ({ canvasElement }) => {
-    saveProfile.mockResolvedValue();
+  play: async ({ args, canvasElement }) => {
+    args.saveProfile.mockResolvedValue({ isSuccess: true });
 
     const firstNameInput = getFirstNameInput(canvasElement);
     const saveButton = getSaveButton(canvasElement);
@@ -50,13 +51,13 @@ export const AttemptSaveWithoutLastName: Story = {
 
     await userEvent.click(saveButton);
 
-    await expect(saveProfile).not.toHaveBeenCalled();
+    await expect(args.saveProfile).not.toHaveBeenCalled();
   },
 };
 
 export const AttemptSaveWithoutFirstName: Story = {
-  play: async ({ canvasElement }) => {
-    saveProfile.mockResolvedValue();
+  play: async ({ args, canvasElement }) => {
+    args.saveProfile.mockResolvedValue({ isSuccess: true });
 
     const lastNameInput = getLastNameInput(canvasElement);
     const saveButton = getSaveButton(canvasElement);
@@ -65,7 +66,7 @@ export const AttemptSaveWithoutFirstName: Story = {
 
     await userEvent.click(saveButton);
 
-    await expect(saveProfile).not.toHaveBeenCalled();
+    await expect(args.saveProfile).not.toHaveBeenCalled();
   },
 };
 

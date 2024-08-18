@@ -1,11 +1,11 @@
+import type { OperationResult } from "@/utils/OperationResult";
+
 export interface Profile {
   firstName: string;
   lastName: string;
 }
 
-type SaveProfileResult = {
-  isSuccess: boolean;
-};
+type SaveProfileResult = OperationResult<undefined, undefined>;
 
 export type SaveProfile = (profile: Profile) => Promise<SaveProfileResult>;
 

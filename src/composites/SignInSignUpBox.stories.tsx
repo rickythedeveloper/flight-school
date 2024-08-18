@@ -45,7 +45,7 @@ export const UnsuccessfulSignIn: Story = {
   play: async ({ args, canvasElement }) => {
     const emailAddress = "example-email@email.com";
     const password = "ExamplePassword";
-    args.signInAction.mockResolvedValue({ isSuccess: false, error: undefined });
+    args.signInAction.mockResolvedValue({ isSuccess: false });
 
     await fillForm(canvasElement, emailAddress, password);
     await clickSignIn(canvasElement);
@@ -77,7 +77,7 @@ export const UnsuccessfulSignUp: Story = {
   play: async ({ args, canvasElement }) => {
     const emailAddress = "example-email@email.com";
     const password = "ExamplePassword";
-    args.signUpAction.mockResolvedValue({ isSuccess: false, error: undefined });
+    args.signUpAction.mockResolvedValue({ isSuccess: false });
 
     await fillForm(canvasElement, emailAddress, password);
     await clickSignUp(canvasElement);

@@ -4,11 +4,16 @@ import type { AuthCredential } from "@/services/serverAuthService/serverAuthServ
 import { serverAuthService } from "@/services/serverAuthService/injection";
 import type { OperationResult } from "@/utils/OperationResult";
 
+type SignInResult = OperationResult<{ hasProfile: boolean }, undefined>;
+
 export type SignInAction = (
   credential: AuthCredential,
-) => Promise<OperationResult<{ hasProfile: boolean }, undefined>>;
+) => Promise<SignInResult>;
 
-export const signInAction: SignInAction = async ({ email, password }) => {
+export const signInAction: SignInAction = async ({
+  email,
+  password,
+}): Promise<SignInResult> => {
   const { isSuccess, hasProfile } = await serverAuthService.signIn({
     email,
     password,
@@ -23,6 +28,5 @@ export const signInAction: SignInAction = async ({ email, password }) => {
 
   return {
     isSuccess: false,
-    error: undefined,
   };
 };

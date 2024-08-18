@@ -36,7 +36,7 @@ describe("signUp", () => {
       validCredentials,
       "localhost:3000/auth/callback",
     );
-    expect(result).toStrictEqual({ isSuccess: false, error: undefined });
+    expect(result).toStrictEqual({ isSuccess: false });
   });
 
   test("returns success if sign up succeeds", async () => {
