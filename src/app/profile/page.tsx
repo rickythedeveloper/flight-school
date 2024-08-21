@@ -2,17 +2,14 @@ import type { ReactElement } from "react";
 import { redirect } from "next/navigation";
 import { getProfileAction } from "@/serverActions/profile/getProfileAction";
 import { pathService } from "@/services/pathService/injection";
+import { ProfilePage } from "@/app/profile/ProfilePage";
 
-export default async function Account(): Promise<ReactElement> {
+export default async function Page(): Promise<ReactElement> {
   const getProfileResult = await getProfileAction();
 
   if (getProfileResult.isSuccess) {
     const profile = getProfileResult.data;
-    return (
-      <div>
-        {profile.firstName} {profile.lastName}
-      </div>
-    );
+    return <ProfilePage profile={profile} />;
   }
 
   switch (getProfileResult.error) {
