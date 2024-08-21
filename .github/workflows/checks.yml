@@ -1,12 +1,12 @@
-name: Checks
+name: Playwright Tests
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 jobs:
-  checks:
-    timeout-minutes: 5
+  install-dependencies:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -15,5 +15,53 @@ jobs:
           node-version: lts/*
       - name: Install dependencies
         run: npm ci
+      - uses: actions/cache@v2
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+  checks:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
       - name: Run checks
         run: npm run check
+  playwright-tests:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Start supabase
+        run: npx supabase start
+      - name: Run Playwright tests
+        run: npm run test-playwright:ci
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+  storybook-tests:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Storybook tests
+        run: npm run test-storybook:ci
+  unit-tests:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    needs: install-dependencies
+    steps:
+      - name: Run unit tests
+        run: npm run unit-test
