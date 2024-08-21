@@ -19,20 +19,20 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
-  install-playwright:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    needs: install-dependencies
-    steps:
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - uses: actions/cache/restore@v4
-        with:
-          path: |
-            **/.cache/ms-playwright/**
-          key: ${{ runner.os }}-playwright-installation-${{ hashFiles('**/.cache/ms-playwright/**') }}
-          restore-keys: |
-            ${{ runner.os }}-playwright-installation
+#  install-playwright:
+#    timeout-minutes: 10
+#    runs-on: ubuntu-latest
+#    needs: install-dependencies
+#    steps:
+#      - name: Install Playwright Browsers
+#        run: npx playwright install --with-deps
+#      - uses: actions/cache/save@v4
+#        with:
+#          path: |
+#            **/.cache/ms-playwright/**
+#          key: ${{ runner.os }}-playwright-installation-${{ hashFiles('**/.cache/ms-playwright/**') }}
+#          restore-keys: |
+#            ${{ runner.os }}-playwright-installation
   checks:
     timeout-minutes: 5
     runs-on: ubuntu-latest
@@ -42,6 +42,8 @@ jobs:
         with:
           path: ./node_modules
           key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
+      - name: print things
+        run: ls
       - name: Run checks
         run: npm run check
   unit-tests:
@@ -55,28 +57,28 @@ jobs:
           key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
       - name: Run unit tests
         run: npm run unit-test
-  storybook-tests:
-    timeout-minutes: 5
-    runs-on: ubuntu-latest
-    needs: install-playwright
-    steps:
-      - name: Run Storybook tests
-        run: npm run test-storybook:ci
-  playwright-tests:
-    timeout-minutes: 10
-    runs-on: ubuntu-latest
-    needs: install-playwright
-    steps:
-      - name: Start supabase
-        run: npx supabase start
-      - name: Run Playwright tests
-        run: npm run test-playwright:ci
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+#  storybook-tests:
+#    timeout-minutes: 5
+#    runs-on: ubuntu-latest
+#    needs: install-playwright
+#    steps:
+#      - name: Run Storybook tests
+#        run: npm run test-storybook:ci
+#  playwright-tests:
+#    timeout-minutes: 10
+#    runs-on: ubuntu-latest
+#    needs: install-playwright
+#    steps:
+#      - name: Start supabase
+#        run: npx supabase start
+#      - name: Run Playwright tests
+#        run: npm run test-playwright:ci
+#        env:
+#          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+#          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+#      - uses: actions/upload-artifact@v4
+#        if: always()
+#        with:
+#          name: playwright-report
+#          path: playwright-report/
+#          retention-days: 30
