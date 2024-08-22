@@ -38,6 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-dependencies
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/cache/restore@v4
         with:
           path: ./node_modules
@@ -51,6 +52,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-dependencies
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/cache/restore@v4
         with:
           path: ./node_modules
