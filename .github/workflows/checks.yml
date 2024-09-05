@@ -31,6 +31,9 @@ jobs:
            key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
        - name: Build app
          run: npm run build
+         env:
+           NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
+           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
        - uses: actions/cache/save@v4
          with:
            path: ./.next
@@ -97,9 +100,6 @@ jobs:
         run: npx supabase start
       - name: Run Playwright tests
         run: npm run test-playwright:ci
-        env:
-          NEXT_PUBLIC_SUPABASE_URL: ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
