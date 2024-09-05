@@ -19,7 +19,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={"h-full w-full"}>
       <head>
-        <ColorSchemeScript />
+        <title>Default title</title>
+        <ColorSchemeScript defaultColorScheme={"auto"} />
       </head>
 
       <body className={"h-full w-full"}>

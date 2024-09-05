@@ -21,10 +21,8 @@ module.exports = {
           {
             // Mantine should only be imported within components folder and a few other exceptions.
             target: [
-              "./src/!(app|components|theme.ts)",
-              "./src/!(app|components)/**",
-              "./src/app/!(layout.tsx)",
-              "./src/app/!(layout.tsx)/**",
+              "./src/!(theme.ts)",
+              "./src/!(components|app/layout.tsx|hooks/useColorScheme.ts)/**",
             ],
             from: "./node_modules/@mantine/core",
           },
