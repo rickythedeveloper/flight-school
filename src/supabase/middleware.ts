@@ -61,7 +61,7 @@ export const updateSession = async (
     user === null
   ) {
     console.info(
-      "User is unauthenticated but tried to access content requiring authentication. Redirecting to login.",
+      `User is unauthenticated but tried to access content requiring authentication (${request.nextUrl.pathname}). Redirecting to login.`,
     );
     const url = request.nextUrl.clone();
     url.pathname = pathService.login.url;
