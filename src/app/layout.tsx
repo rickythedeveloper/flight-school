@@ -13,8 +13,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: ReactNode;
+  modal: ReactNode;
 }>): ReactElement {
   return (
     <html lang="en" className={"h-full w-full"}>
@@ -26,6 +28,7 @@ export default function RootLayout({
       <body className={"h-full w-full"}>
         <MantineProvider theme={theme}>
           <PageContainer>{children}</PageContainer>
+          <div>{modal}</div>
         </MantineProvider>
       </body>
     </html>
