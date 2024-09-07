@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import type { ColorScheme } from "@/hooks/useColorScheme";
 import { useColorScheme } from "@/hooks/useColorScheme";
-import { SegmentedControl } from "@/components/segmentedControls/SegmentedControl";
+import { SegmentedControl } from "@/components/SegmentedControl";
 
 const colorSchemes: { value: ColorScheme; label: string }[] = [
   {

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
-import type { PasswordTextFieldProps } from "./PasswordTextField";
-import { PasswordTextField } from "./PasswordTextField";
+import type { PasswordTextFieldProps } from "./index";
+import { PasswordTextField } from "./index";
 
 type PasswordTextFieldStoryProps = Omit<
   PasswordTextFieldProps,

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
-import type { EmailTextFieldProps } from "./EmailTextField";
-import { EmailTextField } from "./EmailTextField";
+import type { EmailTextFieldProps } from "./index";
+import { EmailTextField } from "./index";
 
 type EmailTextFieldStoryProps = Omit<EmailTextFieldProps, "email" | "setEmail">;
 

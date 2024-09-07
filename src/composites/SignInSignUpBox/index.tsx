@@ -3,7 +3,7 @@
 import type { ReactElement } from "react";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/buttons/Button";
+import { Button } from "@/components/Button";
 import { EmailTextField } from "@/components/inputs/textInputs/EmailTextField";
 import { PasswordTextField } from "@/components/inputs/textInputs/PasswordTextField";
 

@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { ReactElement } from "react";
 import { useState } from "react";
-import type { TextFieldProps } from "./TextField";
-import { TextField } from "./TextField";
+import type { TextFieldProps } from "./index";
+import { TextField } from "./index";
 
 type TextFieldStoryProps = Omit<TextFieldProps, "value" | "setValue">;
 

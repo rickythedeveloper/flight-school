@@ -2,7 +2,7 @@ import type { ReactElement } from "react";
 import { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TextField } from "@/components/inputs/textInputs/TextField";
-import { Button } from "@/components/buttons/Button";
+import { Button } from "@/components/Button";
 import { Stack } from "@/components/layout/Stack";
 import type { SaveProfileAction } from "@/serverActions/profile/saveProfileAction";
 import { pathService } from "@/services/pathService/injection";

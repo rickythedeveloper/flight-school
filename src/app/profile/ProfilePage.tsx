@@ -2,7 +2,7 @@
 
 import type { ReactElement } from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/buttons/Button";
+import { Button } from "@/components/Button";
 import { pathService } from "@/services/pathService/injection";
 import type { Profile } from "@/services/dbService/dbService";
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { expect, fn, userEvent, within } from "@storybook/test";
-import { EditProfileForm } from "./EditProfileForm";
+import { EditProfileForm } from "./index";
 import { typeText } from "@/storybook-utils/typeText";
 
 const meta = {
