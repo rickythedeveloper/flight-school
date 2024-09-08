@@ -4,19 +4,24 @@ import type { FormDefinition, FormStateBase } from "@/hooks/useForm";
 
 interface FormProp<FormValue extends FormStateBase> {
   children: ReactNode;
-  form: FormDefinition<FormValue>;
+  formDefinition: FormDefinition<FormValue>;
   submitButtonTitle: string;
-  onSubmit: (formValue: FormValue) => void;
+  submit: (formValue: FormValue) => void;
 }
 
 export const Form = <FormValue extends FormStateBase>({
   children,
-  form,
+  formDefinition,
   submitButtonTitle,
-  onSubmit,
+  submit,
 }: FormProp<FormValue>): ReactElement => {
   return (
-    <form onSubmit={() => form.onSubmitPressed(onSubmit)}>
+    <form
+      onSubmit={(event) => {
+        event.preventDefault();
+        formDefinition.onSubmitPressed(submit);
+      }}
+    >
       {children}
       <FormButton title={submitButtonTitle} disabled={false} />
     </form>

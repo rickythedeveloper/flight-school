@@ -2,6 +2,7 @@
 
 import type { ReactElement } from "react";
 import { useRouter } from "next/navigation";
+import { CreateSchoolForm } from "../../../../composites/CreateSchoolForm";
 import { Modal } from "@/components/Modal";
 
 export default function Page(): ReactElement {
@@ -15,7 +16,7 @@ export default function Page(): ReactElement {
       }}
       title={"Create new school"}
     >
-      helloooo
+      <CreateSchoolForm />
     </Modal>
   );
 }

@@ -14,6 +14,7 @@ module.exports = {
   rules: {
     "@typescript-eslint/explicit-function-return-type": "error",
     "@typescript-eslint/consistent-type-imports": "error",
+    "no-console": "warn",
     "import/no-restricted-paths": [
       "error",
       {
