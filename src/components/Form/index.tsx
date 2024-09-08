@@ -1,29 +1,29 @@
 import type { ReactElement, ReactNode } from "react";
 import { FormButton } from "@/components/Form/FormButton";
-import type { FormDefinition, FormStateBase } from "@/hooks/useForm";
+import { Stack } from "@/components/layout/Stack";
 
-interface FormProp<FormValue extends FormStateBase> {
+interface FormProp {
   children: ReactNode;
-  formDefinition: FormDefinition<FormValue>;
   submitButtonTitle: string;
-  submit: (formValue: FormValue) => void;
+  onSubmitPressed: () => void;
 }
 
-export const Form = <FormValue extends FormStateBase>({
+export const Form = ({
   children,
-  formDefinition,
   submitButtonTitle,
-  submit,
-}: FormProp<FormValue>): ReactElement => {
+  onSubmitPressed,
+}: FormProp): ReactElement => {
   return (
     <form
       onSubmit={(event) => {
         event.preventDefault();
-        formDefinition.onSubmitPressed(submit);
+        onSubmitPressed();
       }}
     >
-      {children}
-      <FormButton title={submitButtonTitle} disabled={false} />
+      <Stack>
+        {children}
+        <FormButton title={submitButtonTitle} disabled={false} />
+      </Stack>
     </form>
   );
 };
