@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactElement } from "react";
 import { useCallback } from "react";
 import { Form } from "@/components/Form";
