@@ -1,6 +1,7 @@
 import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 import type {
+  CreateSchool,
   DbService,
   GetProfile,
   Profile,
@@ -88,6 +89,28 @@ export class DbServiceImpl implements DbService {
     }
 
     this.logger.info("Successfully saved a profile", { profile });
+    return { isSuccess: true };
+  };
+
+  createSchool: CreateSchool = async (school) => {
+    const supabase = this.supabaseService.createServerClient();
+
+    const { error, status, statusText } = await supabase.from("school").insert({
+      name: school.name,
+      description: school.description,
+    });
+
+    if (error) {
+      this.logger.error("Failed to create a school", {
+        error,
+        status,
+        statusText,
+        school,
+      });
+      return { isSuccess: false };
+    }
+
+    this.logger.info("Successfully created a school", { school });
     return { isSuccess: true };
   };
 }

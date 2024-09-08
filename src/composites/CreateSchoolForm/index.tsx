@@ -7,6 +7,7 @@ import type { CreateSchoolFormValue } from "@/composites/CreateSchoolForm/defini
 import { createSchoolFormDefinition } from "@/composites/CreateSchoolForm/definition";
 import { TextField } from "@/components/inputs/textInputs/TextField";
 import { useForm } from "@/hooks/useForm";
+import { createSchoolAction } from "@/serverActions/school/createSchoolAction";
 
 export const CreateSchoolForm = (): ReactElement => {
   const { formState, updateField, onSubmitPressed, errorState } = useForm(
@@ -14,8 +15,9 @@ export const CreateSchoolForm = (): ReactElement => {
   );
 
   const createSchool = useCallback((formValue: CreateSchoolFormValue) => {
-    // TODO
-    console.log(formValue);
+    // TODO upload images
+    void createSchoolAction(formValue);
+    // TODO create school image entries
   }, []);
 
   return (

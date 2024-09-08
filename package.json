@@ -19,7 +19,8 @@
     "test-playwright:ci": "start-server-and-test start http://localhost:3000 'npm run test-playwright'",
     "unit-test": "jest",
     "test-db": "supabase test db",
-    "test": "npm run unit-test && npm run test-db && npm run test-storybook && npm run test-playwright"
+    "test": "npm run unit-test && npm run test-db && npm run test-storybook && npm run test-playwright",
+    "gen-db-types": "npx supabase gen types typescript --local --schema flight_school > supabase/database.types.ts"
   },
   "dependencies": {
     "@mantine/core": "^7.11.2",

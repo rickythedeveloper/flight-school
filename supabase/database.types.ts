@@ -36,11 +36,54 @@ export type Database = {
             referencedRelation: "users"
             referencedColumns: ["id"]
           },
+        ]
+      }
+      school: {
+        Row: {
+          created_at: string
+          description: string
+          id: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          id?: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      school_image: {
+        Row: {
+          created_at: string
+          id: string
+          resource_id: string
+          school_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          resource_id: string
+          school_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          resource_id?: string
+          school_id?: string
+        }
+        Relationships: [
           {
-            foreignKeyName: "profile_id_fkey1"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
+            foreignKeyName: "school_image_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "school"
             referencedColumns: ["id"]
           },
         ]
