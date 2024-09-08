@@ -3,13 +3,15 @@
 import type { ReactElement } from "react";
 import { useCallback } from "react";
 import { Form } from "@/components/Form";
-import type { CreateSchoolFormValue } from "@/composites/CreateSchoolForm/useCreateSchoolForm";
-import { useCreateSchoolForm } from "@/composites/CreateSchoolForm/useCreateSchoolForm";
+import type { CreateSchoolFormValue } from "@/composites/CreateSchoolForm/definition";
+import { createSchoolFormDefinition } from "@/composites/CreateSchoolForm/definition";
 import { TextField } from "@/components/inputs/textInputs/TextField";
+import { useForm } from "@/hooks/useForm";
 
 export const CreateSchoolForm = (): ReactElement => {
-  const { formState, updateField, onSubmitPressed, errorState } =
-    useCreateSchoolForm();
+  const { formState, updateField, onSubmitPressed, errorState } = useForm(
+    createSchoolFormDefinition,
+  );
 
   const createSchool = useCallback((formValue: CreateSchoolFormValue) => {
     // TODO
