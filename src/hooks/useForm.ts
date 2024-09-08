@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 
-type FormStateBase = Record<string, unknown>;
+export type FormStateBase = Record<string, unknown>;
 
 interface Validator<Value> {
   isValid: (value: Value) => boolean;
@@ -11,7 +11,9 @@ type ErrorState<FormState extends FormStateBase> = {
   [key in keyof FormState]?: string;
 };
 
-export interface Form<FormState extends FormStateBase> {
+export interface FormDefinition<
+  FormState extends FormStateBase = FormStateBase,
+> {
   formState: FormState;
   updateField: (field: keyof FormState, value: FormState[typeof field]) => void;
   onSubmitPressed: (
@@ -23,7 +25,7 @@ export interface Form<FormState extends FormStateBase> {
 export const useForm = <FormState extends FormStateBase>(
   initialState: FormState,
   validators: { [Field in keyof FormState]: Validator<FormState[Field]> },
-): Form<FormState> => {
+): FormDefinition<FormState> => {
   const [formState, setFormState] = useState<FormState>(initialState);
   const [errorState, setErrorState] = useState<ErrorState<FormState>>({});
   const [hasAttemptedSubmission, setHasAttemptedSubmission] =
