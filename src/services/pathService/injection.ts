@@ -7,6 +7,12 @@ export const pathService = {
   login: {
     url: "/login",
   },
+  school: {
+    url: "/school",
+    new: {
+      url: "/school/new",
+    },
+  },
   profile: {
     url: "/profile",
     edit: {
