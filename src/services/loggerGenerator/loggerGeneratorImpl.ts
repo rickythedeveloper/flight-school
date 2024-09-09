@@ -32,25 +32,25 @@ class LoggerImpl implements Logger {
   }
 
   error: Log = (message, metadata) => {
-    const logId = this.idGenerator.generate();
+    const logId = this.idGenerator.generateUuid();
     this.logger.error(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   warn: Log = (message, metadata) => {
-    const logId = this.idGenerator.generate();
+    const logId = this.idGenerator.generateUuid();
     this.logger.warn(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   info: Log = (message, metadata) => {
-    const logId = this.idGenerator.generate();
+    const logId = this.idGenerator.generateUuid();
     this.logger.info(message, this.createLogMetadata(logId, metadata));
     return logId;
   };
 
   debug: Log = (message, metadata) => {
-    const logId = this.idGenerator.generate();
+    const logId = this.idGenerator.generateUuid();
     this.logger.debug(message, this.createLogMetadata(logId, metadata));
     return logId;
   };

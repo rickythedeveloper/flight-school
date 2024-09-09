@@ -1,7 +1,7 @@
 "use client";
 
-import type { ReactElement} from "react";
-import { useMemo , useState, useCallback } from "react";
+import type { ReactElement } from "react";
+import { useMemo, useState, useCallback } from "react";
 import { Form } from "@/components/Form";
 import type { CreateSchoolFormValue } from "@/composites/CreateSchoolForm/definition";
 import { createSchoolFormDefinition } from "@/composites/CreateSchoolForm/definition";
@@ -26,9 +26,7 @@ export const CreateSchoolForm = (): ReactElement => {
   );
 
   const createSchool = useCallback((formValue: CreateSchoolFormValue) => {
-    // TODO upload images
     void createSchoolAction(formValue);
-    // TODO create school image entries
   }, []);
 
   return (

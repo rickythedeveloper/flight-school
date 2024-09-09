@@ -31,7 +31,7 @@ createLoggerMock.mockReturnValue({
 
 const logId = "some-id";
 const idGeneratorMock: IdGenerator = {
-  generate: () => logId,
+  generateUuid: () => logId,
 };
 const loggerGenerator = new LoggerGeneratorImpl(idGeneratorMock);
 
