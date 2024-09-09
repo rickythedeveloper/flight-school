@@ -53,6 +53,7 @@ module.exports = {
     "n/no-missing-import": "off", // Does not recognise the @ shortcut.
     "n/no-process-env": "error", // only environment.ts can access process.env
     "no-type-assertion/no-type-assertion": "error",
+    "n/no-unsupported-features/node-builtins": "off", // Does not allow client types such as File
   },
   overrides: [
     {

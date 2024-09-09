@@ -24,7 +24,7 @@ export const TextField = ({
       value={value}
       onChange={(event) => setValue(event.currentTarget.value)}
       placeholder={placeholder}
-      required={required}
+      withAsterisk={required}
       error={error}
     />
   );

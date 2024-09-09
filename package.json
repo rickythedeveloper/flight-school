@@ -23,10 +23,12 @@
     "gen-db-types": "npx supabase gen types typescript --local --schema flight_school > supabase/database.types.ts"
   },
   "dependencies": {
+    "@mantine/carousel": "^7.12.2",
     "@mantine/core": "^7.11.2",
     "@mantine/hooks": "^7.11.2",
     "@supabase/ssr": "^0.4.0",
     "@supabase/supabase-js": "^2.44.4",
+    "embla-carousel-react": "^7.1.0",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
