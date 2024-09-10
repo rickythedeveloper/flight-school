@@ -21,18 +21,32 @@ export const CreateSchoolForm = (): ReactElement => {
     [images],
   );
 
+  const [isCreating, setIsCreating] = useState<boolean>(false);
+
   const { formState, updateField, onSubmitPressed, errorState } = useForm(
     createSchoolFormDefinition,
   );
 
-  const createSchool = useCallback((formValue: CreateSchoolFormValue) => {
-    void createSchoolAction(formValue);
-  }, []);
+  const createSchool = useCallback(
+    async (formValue: CreateSchoolFormValue) => {
+      setIsCreating(true);
+
+      const fileFormData = new FormData();
+      images.forEach((image) => {
+        fileFormData.append("files", image);
+      });
+
+      await createSchoolAction({ overview: formValue, fileFormData });
+      setIsCreating(false);
+    },
+    [images],
+  );
 
   return (
     <Form
       submitButtonTitle={"Create"}
       onSubmitPressed={() => onSubmitPressed(createSchool)}
+      submitButtonIsDisabled={isCreating}
     >
       <TextField
         label={"Name"}

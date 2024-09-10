@@ -1,6 +1,7 @@
 import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 import type {
+  AddSchoolImage,
   CreateSchool,
   DbService,
   GetProfile,
@@ -95,13 +96,17 @@ export class DbServiceImpl implements DbService {
   createSchool: CreateSchool = async (school) => {
     const supabase = this.supabaseService.createServerClient();
 
-    const { error, status, statusText } = await supabase.from("school").insert({
-      name: school.name,
-      description: school.description,
-    });
+    const { data, error, status, statusText } = await supabase
+      .from("school")
+      .insert({
+        name: school.name,
+        description: school.description,
+      })
+      .select()
+      .single();
 
     if (error) {
-      this.logger.error("Failed to create a school", {
+      this.logger.error("Failed to insert a school", {
         error,
         status,
         statusText,
@@ -111,6 +116,32 @@ export class DbServiceImpl implements DbService {
     }
 
     this.logger.info("Successfully created a school", { school });
-    return { isSuccess: true };
+    return { isSuccess: true, data: { id: data.id } };
+  };
+
+  addSchoolImage: AddSchoolImage = async (schoolImage) => {
+    const supabase = this.supabaseService.createServerClient();
+
+    const { data, error, status, statusText } = await supabase
+      .from("school_image")
+      .insert({
+        school_id: schoolImage.schoolId,
+        resource_id: schoolImage.imageId,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      this.logger.error("Failed to insert a school image", {
+        error,
+        status,
+        statusText,
+        schoolImage,
+      });
+      return { isSuccess: false };
+    }
+
+    this.logger.info("Successfully inserted a school image", { schoolImage });
+    return { isSuccess: true, data: { id: data.id } };
   };
 }

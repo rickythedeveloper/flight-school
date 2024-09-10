@@ -19,12 +19,23 @@ export interface School {
   description: string;
 }
 
-type CreateSchoolResult = OperationResult<undefined, undefined>;
+type CreateSchoolResult = OperationResult<{ id: string }, undefined>;
 export type CreateSchool = (school: School) => Promise<CreateSchoolResult>;
+
+export interface SchoolImage {
+  schoolId: string;
+  imageId: string;
+}
+
+type AddSchoolImageResult = OperationResult<{ id: string }, undefined>;
+export type AddSchoolImage = (
+  schoolImage: SchoolImage,
+) => Promise<AddSchoolImageResult>;
 
 export interface DbService {
   getProfile: GetProfile;
   saveProfile: SaveProfile;
 
   createSchool: CreateSchool;
+  addSchoolImage: AddSchoolImage;
 }

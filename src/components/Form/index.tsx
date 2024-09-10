@@ -6,12 +6,14 @@ interface FormProp {
   children: ReactNode;
   submitButtonTitle: string;
   onSubmitPressed: () => void;
+  submitButtonIsDisabled: boolean;
 }
 
 export const Form = ({
   children,
   submitButtonTitle,
   onSubmitPressed,
+  submitButtonIsDisabled,
 }: FormProp): ReactElement => {
   return (
     <form
@@ -22,7 +24,10 @@ export const Form = ({
     >
       <Stack>
         {children}
-        <FormButton title={submitButtonTitle} disabled={false} />
+        <FormButton
+          title={submitButtonTitle}
+          disabled={submitButtonIsDisabled}
+        />
       </Stack>
     </form>
   );
