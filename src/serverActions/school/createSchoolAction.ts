@@ -25,7 +25,7 @@ export const createSchoolAction = async ({
     | "failedToInsertSchoolImages"
   >
 > => {
-  const createSchoolResult = await dbService.createSchool(overview);
+  const createSchoolResult = await dbService.insertSchool(overview);
 
   if (!createSchoolResult.isSuccess) {
     return { isSuccess: false, error: "failedToCreateSchool" };
@@ -51,7 +51,7 @@ export const createSchoolAction = async ({
     (imageUploadResult) => {
       if (imageUploadResult.isSuccess) {
         const imageId = imageUploadResult.data.imageId;
-        return dbService.addSchoolImage({ schoolId, imageId });
+        return dbService.insertSchoolImage({ schoolId, imageId });
       }
 
       return Promise.resolve(null);

@@ -4,21 +4,21 @@ import { createSchoolAction } from "@/serverActions/school/createSchoolAction";
 import { dbService } from "@/services/dbService/injection";
 import { storageService } from "@/services/storageService/injection";
 import type {
-  AddSchoolImage,
-  CreateSchool,
+  InsertSchoolImage,
+  InsertSchool,
 } from "@/services/dbService/dbService";
 import type { UploadSchoolImage } from "@/services/storageService/storageService";
 
 jest.mock("@/services/dbService/injection", () => ({
   dbService: {
-    createSchool: jest.fn(),
-    addSchoolImage: jest.fn(),
+    insertSchool: jest.fn(),
+    insertSchoolImage: jest.fn(),
   },
 }));
 const insertSchoolMock =
-  dbService.createSchool as jest.MockedFunction<CreateSchool>;
+  dbService.insertSchool as jest.MockedFunction<InsertSchool>;
 const insertSchoolImageMock =
-  dbService.addSchoolImage as jest.MockedFunction<AddSchoolImage>;
+  dbService.insertSchoolImage as jest.MockedFunction<InsertSchoolImage>;
 
 jest.mock("@/services/storageService/injection", () => ({
   storageService: {

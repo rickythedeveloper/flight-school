@@ -1,32 +1,21 @@
 import type { SupabaseService } from "@/services/supabaseService/supabaseService";
 import type { Logger } from "@/services/loggerGenerator/loggerGenerator";
 import type {
-  AddSchoolImage,
-  CreateSchool,
+  InsertSchoolImage,
+  InsertSchool,
   DbService,
-  GetProfile,
+  SelectProfile,
   Profile,
-  SaveProfile,
+  UpsertProfile,
 } from "@/services/dbService/dbService";
-import type { ServerAuthService } from "@/services/serverAuthService/serverAuthService";
 
 export class DbServiceImpl implements DbService {
   constructor(
     private supabaseService: SupabaseService,
-    private serverAuthService: ServerAuthService,
     private logger: Logger,
   ) {}
 
-  getProfile: GetProfile = async () => {
-    const userId = await this.serverAuthService.getUserId();
-
-    if (userId === null) {
-      this.logger.error(
-        "Attempted to get profile for an unauthenticated user.",
-      );
-      return { isSuccess: false, error: "notAuthenticated" };
-    }
-
+  selectProfile: SelectProfile = async (userId) => {
     const supabase = this.supabaseService.createServerClient();
 
     const { data, error, status, statusText } = await supabase
@@ -42,7 +31,7 @@ export class DbServiceImpl implements DbService {
         status,
         statusText,
       });
-      return { isSuccess: false, error: "profileNotFound" };
+      return { isSuccess: false };
     }
 
     const profile: Profile = {
@@ -58,17 +47,7 @@ export class DbServiceImpl implements DbService {
     };
   };
 
-  saveProfile: SaveProfile = async (profile) => {
-    const userId = await this.serverAuthService.getUserId();
-
-    if (userId === null) {
-      this.logger.error(
-        "Attempted to save a profile of a user that is not authenticated.",
-        { profile },
-      );
-      return { isSuccess: false };
-    }
-
+  upsertProfile: UpsertProfile = async (userId, profile) => {
     const supabase = this.supabaseService.createServerClient();
 
     const { error, status, statusText } = await supabase
@@ -93,7 +72,7 @@ export class DbServiceImpl implements DbService {
     return { isSuccess: true };
   };
 
-  createSchool: CreateSchool = async (school) => {
+  insertSchool: InsertSchool = async (school) => {
     const supabase = this.supabaseService.createServerClient();
 
     const { data, error, status, statusText } = await supabase
@@ -119,7 +98,7 @@ export class DbServiceImpl implements DbService {
     return { isSuccess: true, data: { id: data.id } };
   };
 
-  addSchoolImage: AddSchoolImage = async (schoolImage) => {
+  insertSchoolImage: InsertSchoolImage = async (schoolImage) => {
     const supabase = this.supabaseService.createServerClient();
 
     const { data, error, status, statusText } = await supabase

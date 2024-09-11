@@ -5,14 +5,14 @@ export interface Profile {
   lastName: string;
 }
 
-type GetProfileResult = OperationResult<
-  Profile,
-  "notAuthenticated" | "profileNotFound"
->;
-export type GetProfile = () => Promise<GetProfileResult>;
+type GetProfileResult = OperationResult<Profile, undefined>;
+export type SelectProfile = (userId: string) => Promise<GetProfileResult>;
 
 type SaveProfileResult = OperationResult<undefined, undefined>;
-export type SaveProfile = (profile: Profile) => Promise<SaveProfileResult>;
+export type UpsertProfile = (
+  userId: string,
+  profile: Profile,
+) => Promise<SaveProfileResult>;
 
 export interface School {
   name: string;
@@ -20,7 +20,7 @@ export interface School {
 }
 
 type CreateSchoolResult = OperationResult<{ id: string }, undefined>;
-export type CreateSchool = (school: School) => Promise<CreateSchoolResult>;
+export type InsertSchool = (school: School) => Promise<CreateSchoolResult>;
 
 export interface SchoolImage {
   schoolId: string;
@@ -28,14 +28,14 @@ export interface SchoolImage {
 }
 
 type AddSchoolImageResult = OperationResult<{ id: string }, undefined>;
-export type AddSchoolImage = (
+export type InsertSchoolImage = (
   schoolImage: SchoolImage,
 ) => Promise<AddSchoolImageResult>;
 
 export interface DbService {
-  getProfile: GetProfile;
-  saveProfile: SaveProfile;
+  selectProfile: SelectProfile;
+  upsertProfile: UpsertProfile;
 
-  createSchool: CreateSchool;
-  addSchoolImage: AddSchoolImage;
+  insertSchool: InsertSchool;
+  insertSchoolImage: InsertSchoolImage;
 }
