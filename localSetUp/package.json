@@ -1,0 +1,14 @@
+{
+  "name": "localsetup",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "setup:supabase": "node --env-file ./.env setUpLocalSupabase.js "
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@supabase/supabase-js": "^2.45.4"
+  }
+}

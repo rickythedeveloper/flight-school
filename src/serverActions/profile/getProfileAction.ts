@@ -24,5 +24,7 @@ export const getProfileAction: GetProfileAction =
     }
 
     const selectProfileResult = await dbService.selectProfile(userId);
-    return selectProfileResult.isSuccess ? { isSuccess: true, data: selectProfileResult.data } : { isSuccess: false, error: "profileNotFound" };
+    return selectProfileResult.isSuccess
+      ? { isSuccess: true, data: selectProfileResult.data }
+      : { isSuccess: false, error: "profileNotFound" };
   };
