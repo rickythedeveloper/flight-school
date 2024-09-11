@@ -20,7 +20,8 @@
     "unit-test": "jest",
     "test-db": "supabase test db",
     "test": "npm run unit-test && npm run test-db && npm run test-storybook && npm run test-playwright",
-    "gen-db-types": "npx supabase gen types typescript --local --schema flight_school > supabase/database.types.ts"
+    "gen-db-types": "npx supabase gen types typescript --local --schema flight_school > supabase/database.types.ts",
+    "reset:supabase": "supabase db reset && npm --prefix localSetup run setup:supabase"
   },
   "dependencies": {
     "@mantine/carousel": "^7.12.2",
